@@ -1,0 +1,19 @@
+.links line {
+  stroke: #999;
+  stroke-opacity: 0.6;
+}
+
+.links line.selected {
+  stroke: #bb3333;
+  stroke-width: 2px;
+}
+
+.nodes circle {
+  fill: #555555;
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+.nodes circle.selected {
+  fill: #bb3333;
+}

@@ -1,0 +1,55 @@
+{
+  "name": "lnd-test",
+  "version": "1.0.0",
+  "description": "Testing a node app connecting to the Lightning Network Daemon",
+  "scripts": {
+    "build": "browserify src/client/app.jsx --extension=.jsx -o ./dist/bundle.js",
+    "watch": "npm-run-all --parallel watch:*",
+    "watch:client": "watchify src/client/app.jsx --debug -v --extension=.jsx -o ./dist/bundle.js",
+    "watch:server": "nodemon --ignore dist src/server/server"
+  },
+  "keywords": [
+    "lnd"
+  ],
+  "author": "Brian Mancini <bmancini@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "babel-preset-react": "^6.24.1",
+    "body-parser": "^1.18.2",
+    "bootstrap": "^4.0.0",
+    "cache-base": "^2.0.2",
+    "copy-to-clipboard": "^3.0.8",
+    "d3": "^4.12.2",
+    "express": "^4.16.2",
+    "grpc": "^1.8.4",
+    "lnd-async": "^1.0.1",
+    "moment": "^2.20.1",
+    "pug": "^2.0.0-rc.4",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "reactstrap": "^5.0.0-alpha.4",
+    "serve-static": "^1.13.1",
+    "uuid": "^3.2.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babelify": "^8.0.0",
+    "browserify": "^15.2.0",
+    "eslint-plugin-react": "^7.6.0",
+    "eslintrc": "^1.0.4",
+    "nodemon": "^1.14.11",
+    "npm-run-all": "^4.1.2",
+    "prettier": "^1.10.2",
+    "watchify": "^3.9.0"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify"
+      ]
+    ]
+  }
+}
