@@ -9,8 +9,8 @@ const app = express();
 lnd.connect();
 
 app.use(compression());
-app.use('/public', serveStatic(path.join(__dirname, '../public')));
-app.use('/public/app', serveStatic(path.join(__dirname, '../../dist')));
+app.use('/public/app', serveStatic(path.join(__dirname, '../../dist/app')));
+app.use('/public/css', serveStatic(path.join(__dirname, '../../dist/css')));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(require('./api/api-home'));

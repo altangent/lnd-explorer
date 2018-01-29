@@ -1,7 +1,8 @@
 import React from 'react';
 
 export const BtcAmount = ({ satoshi = 0 }) => (
-  <span>
-    {satoshi} sat ({satoshi / 1e8} BTC)
-  </span>
+  <div className="btc-amount">
+    <div className="in-satoshi">{satoshi} sat</div>
+    <div className="in-btc">{satoshi / 1e8} BTC</div>
+  </div>
 );

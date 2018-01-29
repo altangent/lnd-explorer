@@ -1,5 +1,6 @@
 import React from 'react';
-import { Popover, PopoverHeader, PopoverBody } from 'reactstrap';
+import { Popover, PopoverBody } from 'reactstrap';
+import { EntypoCopy } from 'react-entypo';
 import copy from 'copy-to-clipboard';
 import uuid4 from 'uuid/v4';
 
@@ -65,7 +66,7 @@ export class Hex extends React.PureComponent {
         {this._renderValue(value, truncatedValue, showStart)}
         &nbsp;
         <a href="#" onClick={this.copyClicked}>
-          copy
+          <EntypoCopy />
         </a>
         <Popover
           placement="bottom-start"

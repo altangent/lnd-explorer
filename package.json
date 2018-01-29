@@ -5,13 +5,13 @@
   "scripts": {
     "start": "NODE_ENV=production node src/server/server",
     "build": "npm-run-all build:*",
-    "build:app": "browserify src/client/app.jsx --extension=.jsx -o ./dist/bundle.js",
-    "build:app-compress": "uglifyjs -c -o ./dist/bundle.js ./dist/bundle.js",
-    "build:scss": "node-sass -o dist --output-style compressed src/scss/app.scss",
+    "build:app": "browserify src/client/app.jsx --extension=.jsx -o ./dist/app/bundle.js",
+    "build:app-compress": "uglifyjs -c -o ./dist/app/bundle.js ./dist/app/bundle.js",
+    "build:scss": "node-sass -o dist/css --output-style compressed src/scss/app.scss",
     "watch": "npm-run-all --parallel watch:*",
-    "watch:client": "watchify src/client/app.jsx --debug -v --extension=.jsx -o ./dist/bundle.js",
-    "watch:server": "nodemon --ignore dist src/server/server",
-    "watch:scss": "node-sass -o dist src/scss/app.scss && node-sass -w -r -o dist src/scss/app.scss"
+    "watch:app": "browserify src/client/app.jsx --extension=.jsx -o ./dist/app/bundle.js && watchify src/client/app.jsx --debug -v --extension=.jsx -o ./dist/app/bundle.js",
+    "watch:scss": "node-sass -o dist/css src/scss/app.scss && node-sass -w -r -o dist/app src/scss/app.scss",
+    "watch:server": "nodemon --ignore dist src/server/server"
   },
   "keywords": [
     "lnd"
@@ -33,6 +33,7 @@
     "pug": "^2.0.0-rc.4",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-entypo": "^1.3.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "reactstrap": "^5.0.0-alpha.4",
