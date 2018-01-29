@@ -1,5 +1,6 @@
 const path = require('path');
 const express = require('express');
+const compression = require('compression');
 const bodyParser = require('body-parser');
 const serveStatic = require('serve-static');
 const lnd = require('./lnd');
@@ -7,6 +8,7 @@ const app = express();
 
 lnd.connect();
 
+app.use(compression());
 app.use('/public', serveStatic(path.join(__dirname, '../public')));
 app.use('/public/app', serveStatic(path.join(__dirname, '../../dist')));
 app.use(bodyParser.urlencoded({ extended: false }));

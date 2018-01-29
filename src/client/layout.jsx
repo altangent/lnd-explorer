@@ -26,7 +26,7 @@ export class Layout extends React.Component {
   render() {
     return (
       <div>
-        <Navbar color="faded" light expand="md">
+        <Navbar className="main-navbar" light expand="md">
           <NavbarBrand tag={Link} to="/">
             LND Explorer
           </NavbarBrand>
