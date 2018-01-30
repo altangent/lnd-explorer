@@ -17,6 +17,6 @@ export const PeersList = ({ peers }) => (
         <th />
       </tr>
     </thead>
-    <tbody>{peers.map(peer => <PeerListItem peer={peer} />)}</tbody>
+    <tbody>{peers.map(peer => <PeerListItem key={'peer_' + peer.peer_id} peer={peer} />)}</tbody>
   </Table>
 );

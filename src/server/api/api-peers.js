@@ -14,14 +14,13 @@ async function getPeers(req, res) {
 }
 
 async function disconnectPeer(req, res) {
-  let pub_key = req.params.pub_key;
+  let pub_key = req.body.pub_key;
   await lnd.client.disconnectPeer({ pub_key });
   res.send({});
 }
 
 async function connectPeer(req, res) {
-  let [pubkey, host] = req.body.addr.split('@');
-  let perm = req.body.perm || true;
+  let { pubkey, host, perm } = req.body;
   let addr = {
     pubkey,
     host,
