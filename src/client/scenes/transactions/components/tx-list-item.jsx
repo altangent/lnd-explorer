@@ -17,11 +17,17 @@ export const TxListItem = ({ tx }) => (
     </td>
     <td>{tx.block_height}</td>
     <td>
-      <Timestamp timestamp={tx.timestamp} />
+      <Timestamp timestamp={tx.time_stamp} />
     </td>
     <td>
       <BtcAmount satoshi={tx.total_fees} />
     </td>
-    <td>{tx.dest_addresses.join(', ')}</td>
+    <td>
+      {tx.dest_addresses.map((address, idx) => (
+        <div key={'txa_' + tx.tx_hash + '_' + idx}>
+          <Hex value={address} />
+        </div>
+      ))}
+    </td>
   </tr>
 );

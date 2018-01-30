@@ -1,8 +1,9 @@
 import React from 'React';
 import { Loading } from '../../components/loading';
 import { ChannelsCard } from './components/channels-card';
-import { OpenChannelsListItem } from './components/open-channels-list-item';
+
 import { OpenChannelsListHeader } from './components/open-channels-list-header';
+import { OpenChannelsListItem } from './components/open-channels-list-item';
 import { PendingOpenChannelsListItem } from './components/pending-open-channels-list-item';
 import { PendingOpenChannelsListHeader } from './components/pending-open-channels-list-header';
 import { PendingClosingChannelsListItem } from './components/pending-closing-channels-list-item';
@@ -17,6 +18,7 @@ export class ChannelsScene extends React.Component {
       channelBalance: undefined,
       openChannels: undefined,
       pendingChannels: undefined,
+      closeChannelScope: undefined,
     };
   }
 
@@ -31,7 +33,7 @@ export class ChannelsScene extends React.Component {
   }
 
   render() {
-    let { channelBalance, openChannels, pendingChannels } = this.state;
+    let { openChannels, pendingChannels } = this.state;
     if (!openChannels) return <Loading />;
     return (
       <div>

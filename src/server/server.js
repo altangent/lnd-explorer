@@ -6,12 +6,18 @@ const serveStatic = require('serve-static');
 const lnd = require('./lnd');
 const app = express();
 
-lnd.connect();
+const wss = require('./wss');
+const server = wss.connect(app);
+
+lnd.connect().then(() => {
+  let txSub = lnd.client.subscribeTransactions({});
+  txSub.on('data', wss.broadcastTransaction);
+});
 
 app.use(compression());
 app.use('/public/app', serveStatic(path.join(__dirname, '../../dist/app')));
 app.use('/public/css', serveStatic(path.join(__dirname, '../../dist/css')));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use(require('./api/api-home'));
 app.use(require('./api/api-transactions'));
@@ -23,4 +29,4 @@ app.use(require('./api/api-network'));
 
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../public/index.html')));
 
-app.listen(8000, () => console.log('connected to localhost:8000'));
+server.listen(8000, () => console.log('connected to localhost:8000'));

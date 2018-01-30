@@ -7,23 +7,19 @@ import { Hex } from '../../../components/hex';
 export const PendingOpenChannelsListItem = ({ channel }) => (
   <tr>
     <td>
-      <BoolValue value={channel.active} />
+      <Hex value={channel.channel.remote_node_pub} />
     </td>
     <td>
-      <Hex value={channel.remote_pubkey} />
+      <Hex value={channel.channel.channel_point} />
     </td>
     <td>
-      <Hex value={channel.channel_point} />
-    </td>
-    <td>{channel.chan_id}</td>
-    <td>
-      <BtcAmount satoshi={channel.capacity} />
+      <BtcAmount satoshi={channel.channel.capacity} />
     </td>
     <td>
-      <BtcAmount satoshi={channel.local_balance} />
+      <BtcAmount satoshi={channel.channel.local_balance} />
     </td>
     <td>
-      <BtcAmount satoshi={channel.remote_balance} />
+      <BtcAmount satoshi={channel.channel.remote_balance} />
     </td>
     <td>
       <BtcAmount satoshi={channel.commit_fee} />
@@ -34,7 +30,6 @@ export const PendingOpenChannelsListItem = ({ channel }) => (
     <td>
       <BtcAmount satoshi={channel.fee_per_kw} />
     </td>
-    <td>{channel.confirmation.height}</td>
-    <td>{channel.blocks_till_open}</td>
+    <td>{channel.confirmation_height}</td>
   </tr>
 );

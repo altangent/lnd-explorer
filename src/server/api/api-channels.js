@@ -33,6 +33,7 @@ async function createChannel(req, res, next) {
     local_funding_amount,
     push_sat,
   });
+
   conn.on('data', data => console.log('data', data));
   conn.on('status', status => console.log('status', status));
   conn.on('error', next);
@@ -40,7 +41,7 @@ async function createChannel(req, res, next) {
 }
 
 async function closeChannel(req, res, next) {
-  let { channel_point } = req.params;
+  let { channel_point } = req.body;
   let force = false;
 
   let [funding_txid_str, output_index] = channel_point.split(':');
@@ -49,7 +50,7 @@ async function closeChannel(req, res, next) {
     funding_txid: reverse(Buffer.from(funding_txid_str, 'hex')),
     output_index: parseInt(output_index),
   };
-  console.log(channel_point);
+
   let conn = await lnd.client.closeChannel({ channel_point, force });
   conn.on('data', data => console.log('data', data));
   conn.on('status', status => console.log('status', status));

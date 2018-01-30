@@ -1,11 +1,9 @@
 import React from 'React';
 
-export const PendingOpenChannelsListHeader = ({ channels }) => (
+export const PendingOpenChannelsListHeader = () => (
   <tr>
-    <th>Active</th>
     <th>Remote pub key</th>
     <th>Channel point</th>
-    <th>Channel id</th>
     <th>Capacity</th>
     <th>Local balance</th>
     <th>Remote balance</th>
@@ -13,6 +11,5 @@ export const PendingOpenChannelsListHeader = ({ channels }) => (
     <th>Commit weight</th>
     <th>Fee per kiloweight</th>
     <th>Confirmation height</th>
-    <th>Blocks till open</th>
   </tr>
 );

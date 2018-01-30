@@ -1,8 +1,9 @@
 import React from 'React';
-import { Button } from 'reactstrap';
+import PropTypes from 'prop-types';
 import { BoolValue } from '../../../components/bool-value';
 import { BtcAmount } from '../../../components/btc-amount';
 import { Hex } from '../../../components/hex';
+import { CloseChannelModal } from '../../close-channel/close-channel-modal';
 
 export const OpenChannelsListItem = ({ channel }) => (
   <tr>
@@ -44,9 +45,11 @@ export const OpenChannelsListItem = ({ channel }) => (
     <td>{channel.num_updates}</td>
     <td>{channel.pending_htlcs}</td>
     <td>
-      <Button color="warning" size="sm">
-        Close
-      </Button>
+      <CloseChannelModal channel={channel} />
     </td>
   </tr>
 );
+
+OpenChannelsListItem.propTypes = {
+  channel: PropTypes.object,
+};
