@@ -26,6 +26,8 @@ app.use(require('./api/api-channels'));
 app.use(require('./api/api-invoices'));
 app.use(require('./api/api-payments'));
 app.use(require('./api/api-network'));
+app.use(require('./api/api-address'));
+app.use(require('./api/api-message'));
 
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../public/index.html')));
 

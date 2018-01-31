@@ -23,6 +23,7 @@ import { ChannelsScene } from './channels/channels-scene';
 import { InvoicesScene } from './invoices/invoices-scene';
 import { PaymentsScene } from './payments/payments-scene';
 import { NetworkScene } from './network/network-scene';
+import { ToolsMenu } from './tools-menu';
 
 export class Layout extends React.Component {
   constructor(props) {
@@ -44,7 +45,7 @@ export class Layout extends React.Component {
       <div>
         <Navbar className="main-navbar" light expand="md">
           <NavbarBrand tag={Link} to="/">
-            LND Explorer
+            &#x26A1; LND Explorer
           </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse navbar isOpen={this.state.isOpen}>
@@ -85,6 +86,7 @@ export class Layout extends React.Component {
                   Network
                 </NavLink>
               </NavItem>
+              <ToolsMenu />
             </Nav>
           </Collapse>
         </Navbar>
