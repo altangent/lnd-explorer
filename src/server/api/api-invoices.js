@@ -4,7 +4,6 @@ const app = express();
 
 app.get('/api/invoices', (req, res, next) => getInvoices(req, res).catch(next));
 app.post('/api/invoices', (req, res, next) => createInvoice(req, res).catch(next));
-app.post('/api/payment', (req, res, next) => payInvoice(req, res).catch(next));
 
 module.exports = app;
 
@@ -24,17 +23,4 @@ async function createInvoice(req, res) {
   let { memo, value } = req.body;
   await lnd.client.addInvoice({ memo, value });
   res.send({});
-}
-
-async function payInvoice(req, res) {
-  let { payment_request } = req.body;
-
-  let call = lnd.client.sendPayment({});
-  call.on('data', m => {
-    console.log(m);
-    res.send({});
-  });
-  call.write({
-    payment_request,
-  });
 }
