@@ -17,7 +17,9 @@ export class ToastContainerComponent extends React.Component {
     socket.on('openchannel', this.onOpenChannel);
     socket.on('openchannelerror', this.onOpenChannelError);
     socket.on('closechannel', this.onCloseChannel);
-    socket.on('closechannelerror', this.onClock);
+    socket.on('closechannelerror', this.onCloseChannelError);
+    socket.on('sendpayment', this.onSendPayment);
+    socket.on('sendpaymenterror', this.onSendPaymentError);
   }
 
   componentWillUnmount() {
@@ -41,7 +43,6 @@ export class ToastContainerComponent extends React.Component {
   };
 
   onCloseChannel = msg => {
-    console.log(msg);
     let toast = { type: 'success' };
     if (msg.update === 'close_pending') toast.message = 'Close channel has been initiated';
     if (msg.update === 'chan_close') toast.message = 'Channel has been closed';
@@ -50,6 +51,20 @@ export class ToastContainerComponent extends React.Component {
 
   onCloseChannelError = err => {
     let toast = { type: 'danger', message: 'Failed to close channel with error: ' + err.details };
+    this.addToast(toast);
+  };
+
+  onSendPayment = msg => {
+    let toast;
+    if (msg.payment_error)
+      toast = { type: 'danger', message: 'Send payment failed with error: ' + msg.payment_error };
+    if (!msg.payment_error)
+      toast = { type: 'success', message: 'Sent payment for ' + msg.payment_route.total_amt };
+    this.addToast(toast);
+  };
+
+  onSendPaymentError = err => {
+    let toast = { type: 'danger', message: 'Failed to send payment with error: ' + err.details };
     this.addToast(toast);
   };
 
