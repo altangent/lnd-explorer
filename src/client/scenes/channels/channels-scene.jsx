@@ -1,4 +1,7 @@
 import React from 'React';
+import PropTypes from 'prop-types';
+
+import { withSocket } from '../../services/socket';
 import { Loading } from '../../components/loading';
 import { ChannelsCard } from './components/channels-card';
 
@@ -11,7 +14,11 @@ import { PendingClosingChannelsListHeader } from './components/pending-closing-c
 import { PendingForceChannelsListItem } from './components/pending-force-channels-list-item';
 import { PendingForceChannelsListHeader } from './components/pending-force-channels-list-header';
 
-export class ChannelsScene extends React.Component {
+export class ChannelsSceneComponent extends React.Component {
+  static propTypes = {
+    socket: PropTypes.object.isRequired,
+  };
+
   constructor() {
     super();
     this.state = {
@@ -22,11 +29,27 @@ export class ChannelsScene extends React.Component {
     };
   }
 
-  fetchChannels() {
+  componentDidMount() {
+    let { socket } = this.props;
+    socket.on('openchannel', this.delayFetchChannels);
+    socket.on('closechannel', this.delayFetchChannels);
+  }
+
+  componentWillUnmount() {
+    let { socket } = this.props;
+    socket.off('openchannel', this.delayFetchChannels);
+    socket.off('closechannel', this.delayFetchChannels);
+  }
+
+  delayFetchChannels = () => {
+    setTimeout(this.fetchChannels, 100);
+  };
+
+  fetchChannels = () => {
     fetch('/api/channels')
       .then(res => res.json())
       .then(data => this.setState(data));
-  }
+  };
 
   componentWillMount() {
     this.fetchChannels();
@@ -65,3 +88,5 @@ export class ChannelsScene extends React.Component {
     );
   }
 }
+
+export const ChannelsScene = withSocket(ChannelsSceneComponent);

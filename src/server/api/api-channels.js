@@ -1,9 +1,10 @@
 const express = require('express');
 const lnd = require('../lnd');
+const wss = require('../wss');
 const app = express();
 
 app.get('/api/channels', (req, res, next) => getChannels(req, res).catch(next));
-app.post('/api/channels', (req, res, next) => createChannel(req, res, next).catch(next));
+app.post('/api/channels', (req, res, next) => openChannel(req, res, next).catch(next));
 app.delete('/api/channels', (req, res, next) => closeChannel(req, res, next).catch(next));
 
 module.exports = app;
@@ -21,7 +22,7 @@ async function getChannels(req, res) {
   res.send({ openChannels: openChannels.channels, pendingChannels, channelBalance });
 }
 
-async function createChannel(req, res, next) {
+async function openChannel(req, res) {
   let { target_peer_id, local_funding_amount, push_sat } = req.body;
 
   target_peer_id = parseInt(target_peer_id);
@@ -33,14 +34,11 @@ async function createChannel(req, res, next) {
     local_funding_amount,
     push_sat,
   });
-
-  conn.on('data', data => console.log('data', data));
-  conn.on('status', status => console.log('status', status));
-  conn.on('error', next);
-  res.send({});
+  wss.subscribeOpenChannel(conn);
+  res.send({ ok: true });
 }
 
-async function closeChannel(req, res, next) {
+async function closeChannel(req, res) {
   let { channel_point } = req.body;
   let force = false;
 
@@ -52,9 +50,7 @@ async function closeChannel(req, res, next) {
   };
 
   let conn = await lnd.client.closeChannel({ channel_point, force });
-  conn.on('data', data => console.log('data', data));
-  conn.on('status', status => console.log('status', status));
-  conn.on('error', next);
+  wss.subscribeCloseChannel(conn);
   res.send({});
 }
 

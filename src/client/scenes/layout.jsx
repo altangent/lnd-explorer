@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router';
 import { Link, Route } from 'react-router-dom';
 import {
   Badge,
@@ -13,11 +12,9 @@ import {
   NavbarToggler,
 } from 'reactstrap';
 
-import { connect } from 'react-redux';
-import { newTxs } from '../redux/selectors/tx-selectors';
-
+import { ToastContainer } from './toast/toast-container';
 import { HomeScene } from './home/home-scene';
-import { TransactionsSceneWithData } from './transactions/transactions-scene';
+import { TransactionsScene } from './transactions/transactions-scene';
 import { PeersScene } from './peers/peers-scene';
 import { ChannelsScene } from './channels/channels-scene';
 import { InvoicesScene } from './invoices/invoices-scene';
@@ -26,6 +23,11 @@ import { NetworkScene } from './network/network-scene';
 import { ToolsMenu } from './tools-menu';
 
 export class Layout extends React.Component {
+  static propTypes = {
+    newTxs: PropTypes.array,
+    toast: PropTypes.array,
+  };
+
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
@@ -43,6 +45,7 @@ export class Layout extends React.Component {
   render() {
     return (
       <div>
+        <ToastContainer />
         <Navbar className="main-navbar" light expand="md">
           <NavbarBrand tag={Link} to="/">
             &#x26A1; LND Explorer
@@ -57,8 +60,7 @@ export class Layout extends React.Component {
               </NavItem>
               <NavItem>
                 <NavLink tag={Link} to="/transactions">
-                  Transactions&nbsp;
-                  {this.renderTxBadge()}
+                  Transactions
                 </NavLink>
               </NavItem>
               <NavItem>
@@ -92,7 +94,7 @@ export class Layout extends React.Component {
         </Navbar>
         <div className="container-fluid mt-3">
           <Route exact path="/" component={HomeScene} />
-          <Route path="/transactions" component={TransactionsSceneWithData} />
+          <Route path="/transactions" component={TransactionsScene} />
           <Route path="/peers" component={PeersScene} />
           <Route path="/channels" component={ChannelsScene} />
           <Route path="/invoices" component={InvoicesScene} />
@@ -102,24 +104,4 @@ export class Layout extends React.Component {
       </div>
     );
   }
-
-  renderTxBadge() {
-    let { newTxs } = this.props;
-    if (newTxs.length)
-      return (
-        <Badge pill color="primary">
-          {newTxs.length}
-        </Badge>
-      );
-  }
 }
-
-Layout.propTypes = {
-  newTxs: PropTypes.array,
-};
-
-export const LayoutWithData = withRouter(
-  connect(state => ({
-    newTxs: newTxs(state),
-  }))(Layout)
-);

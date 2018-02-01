@@ -43,9 +43,7 @@ export class OpenChannelModal extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ target_peer_id, local_funding_amount, push_sat }),
-    })
-      .then(res => res.json())
-      .then(data => console.log(data));
+    });
   }
 
   formChanged = form => {

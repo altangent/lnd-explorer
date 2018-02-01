@@ -36,7 +36,7 @@ export class NetworkScene extends React.Component {
         </div>
         <div className="row mb-5">
           <div className="col-sm-7">
-            <NetworkGraphCard graph={graph} />
+            <NetworkGraphCard />
           </div>
           <div className="col-sm-5">
             <NodeInfoCard />

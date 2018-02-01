@@ -51,7 +51,7 @@ export class Hex extends React.PureComponent {
   }
 
   render() {
-    let { value, showStart = true, substrLength = 12 } = this.props;
+    let { value, showStart = true, substrLength = 8 } = this.props;
     let { popoverOpen, id } = this.state;
     let truncatedValue = this._truncateValue(value, showStart, substrLength);
     return (

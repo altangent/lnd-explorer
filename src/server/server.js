@@ -1,4 +1,5 @@
 const path = require('path');
+const winston = require('winston');
 const express = require('express');
 const compression = require('compression');
 const bodyParser = require('body-parser');
@@ -10,8 +11,13 @@ const wss = require('./wss');
 const server = wss.connect(app);
 
 lnd.connect().then(() => {
+  winston.info('subscribing to transactions');
   let txSub = lnd.client.subscribeTransactions({});
   txSub.on('data', wss.broadcastTransaction);
+
+  winston.info('subscribing to invoices');
+  let invSub = lnd.client.subscribeToInvoices({});
+  invSub.on('data', wss.broadcastInvoice);
 });
 
 app.use(compression());
@@ -31,4 +37,4 @@ app.use(require('./api/api-message'));
 
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../public/index.html')));
 
-server.listen(8000, () => console.log('connected to localhost:8000'));
+server.listen(8000, () => winston.info('connected to localhost:8000'));
