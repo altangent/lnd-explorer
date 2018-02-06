@@ -10,7 +10,7 @@
     "build:scss": "node-sass -o dist/css --output-style compressed src/scss/app.scss",
     "watch": "npm-run-all --parallel watch:*",
     "watch:app": "browserify src/client/app.jsx --extension=.jsx -o ./dist/app/bundle.js && watchify src/client/app.jsx --debug -v --extension=.jsx -o ./dist/app/bundle.js",
-    "watch:scss": "node-sass -o dist/css src/scss/app.scss && node-sass -w -o dist/app src/scss/app.scss",
+    "watch:scss": "node-sass -o dist/css src/scss/app.scss && node-sass -w -o dist/css src/scss/app.scss",
     "watch:server": "nodemon --ignore dist --ignore src/client src/server/server"
   },
   "keywords": [

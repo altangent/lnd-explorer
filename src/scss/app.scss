@@ -1,16 +1,16 @@
 // Override Bootstrap
 @import '../../node_modules/bootstrap/scss/_functions.scss';
-@import './bootstrap-variables.scss';
+@import './_bootstrap-variables.scss';
 @import '../../node_modules/bootstrap/scss/bootstrap';
 
 // Common App
-@import './app-variables.scss';
+@import './_app-variables.scss';
 
 // Components
-@import './components/btc-amount.scss';
-@import './components/graph.scss';
-@import './components/layout.scss';
-@import './components/modal-alert.scss';
+@import './components/_btc-amount.scss';
+@import './components/_graph.scss';
+@import './components/_layout.scss';
+@import './components/_modal-alert.scss';
 
 // Scenes
-@import './scenes/toast.scss';
+@import './scenes/_toast.scss';
