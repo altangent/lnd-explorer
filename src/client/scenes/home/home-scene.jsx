@@ -1,6 +1,7 @@
 import React from 'react';
 import { InfoCard } from './components/info-card';
 import { WalletBalanceCard } from './components/wallet-balance-card';
+import { Loading } from '../../components/loading';
 
 export class HomeScene extends React.Component {
   constructor() {
@@ -26,7 +27,7 @@ export class HomeScene extends React.Component {
 
   render() {
     let { info, channelBalance, walletBalanceWitness, walletBalanceAll } = this.state;
-    if (!info) return <div>Loading...</div>;
+    if (!info) return <Loading />;
     return (
       <div>
         <div className="row">

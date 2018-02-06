@@ -2,6 +2,7 @@ import qs from 'qs';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TxListCard } from './components/tx-list-card';
+import { Loading } from '../../components/loading';
 
 export class TransactionsScene extends React.Component {
   static propTypes = {
@@ -41,7 +42,7 @@ export class TransactionsScene extends React.Component {
 
   render() {
     let { txs } = this.state;
-    if (!txs) return <div>Loading...</div>;
+    if (!txs) return <Loading />;
     return <TxListCard transactions={txs} />;
   }
 }
