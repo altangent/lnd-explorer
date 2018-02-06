@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
 import { BtcAmount } from '../../components/btc-amount';
 import { Hex } from '../../components/hex';
+import { ModalAlert } from '../../components/modal-alert';
+import { parseJson } from '../../services/rest-helpers';
 
 export class CloseChannelModal extends React.Component {
   static propTypes = {
@@ -11,13 +13,16 @@ export class CloseChannelModal extends React.Component {
 
   state = {
     open: false,
+    error: undefined,
   };
 
-  toggle = () => this.setState({ open: !this.state.open });
+  toggle = () => this.setState({ open: !this.state.open, error: undefined });
 
   ok = () => {
     let channel = this.props.channel;
-    this.closeChannel(channel).then(this.toggle);
+    this.closeChannel(channel)
+      .then(this.toggle)
+      .catch(error => this.setState({ error }));
   };
 
   closeChannel = channel => {
@@ -27,14 +32,12 @@ export class CloseChannelModal extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(channel),
-    })
-      .then(res => res.json())
-      .then(data => console.log(data));
+    }).then(parseJson);
   };
 
   render() {
     let { channel } = this.props;
-    let { open } = this.state;
+    let { open, error } = this.state;
     if (!channel) return <div />;
     return (
       <div>
@@ -44,6 +47,7 @@ export class CloseChannelModal extends React.Component {
         <Modal isOpen={open} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>Close channel?</ModalHeader>
           <ModalBody>
+            <ModalAlert error={error} />
             <div className="row mb-3">
               <div className="col-sm-12">
                 <em>Are you sure you want to close the channel:</em>

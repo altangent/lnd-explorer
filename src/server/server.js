@@ -37,4 +37,8 @@ app.use(require('./api/api-message'));
 
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../public/index.html')));
 
+app.use((err, req, res, next) => {
+  res.status(500).json(err);
+});
+
 server.listen(8000, () => winston.info('connected to localhost:8000'));

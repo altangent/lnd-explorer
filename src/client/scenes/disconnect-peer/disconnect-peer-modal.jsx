@@ -1,6 +1,8 @@
 import React from 'React';
 import PropTypes from 'prop-types';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
+import { ModalAlert } from '../../components/modal-alert';
+import { parseJson } from '../../services/rest-helpers';
 
 export class DisconnectPeerModal extends React.Component {
   static propTypes = {
@@ -9,13 +11,20 @@ export class DisconnectPeerModal extends React.Component {
 
   state = {
     open: false,
+    error: undefined,
   };
 
   toggle = () => {
-    this.setState({ open: !this.state.open });
+    this.setState({ open: !this.state.open, error: undefined });
   };
 
-  disconnect = () => {
+  ok = () => {
+    this.disconnectPeer()
+      .then(this.toggle)
+      .catch(error => this.setState({ error }));
+  };
+
+  disconnectPeer() {
     let { pub_key } = this.props.peer;
     return fetch('/api/peers', {
       method: 'delete',
@@ -23,11 +32,12 @@ export class DisconnectPeerModal extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ pub_key }),
-    }).then(this.toggle);
-  };
+    }).then(parseJson);
+  }
 
   render() {
     let { peer } = this.props;
+    let { error } = this.state;
     return (
       <div>
         <Button color="warning" size="sm" onClick={this.toggle}>
@@ -36,6 +46,7 @@ export class DisconnectPeerModal extends React.Component {
         <Modal isOpen={this.state.open} toggle={this.toggle}>
           <ModalHeader>Disconnect from peer</ModalHeader>
           <ModalBody>
+            <ModalAlert error={error} />
             <div className="row mb-3">
               <div className="col-sm-12">
                 <em>Are you sure you want to disconnect from the peer?</em>
@@ -47,7 +58,7 @@ export class DisconnectPeerModal extends React.Component {
             </div>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.disconnect}>
+            <Button color="primary" onClick={this.ok}>
               Disconnect
             </Button>
             <Button color="secondary" onClick={this.toggle}>

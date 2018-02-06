@@ -2,6 +2,8 @@ import React from 'React';
 import PropTypes from 'prop-types';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
 import { ConnectPeerForm } from './components/connect-peer-form';
+import { ModalAlert } from '../../components/modal-alert';
+import { parseJson } from '../../services/rest-helpers';
 
 export class ConnectPeerModal extends React.Component {
   static propTypes = {
@@ -11,14 +13,17 @@ export class ConnectPeerModal extends React.Component {
   state = {
     open: false,
     form: undefined,
+    error: undefined,
   };
 
   toggle = () => {
-    this.setState({ open: !this.state.open });
+    this.setState({ open: !this.state.open, error: undefined });
   };
 
   ok = () => {
-    this.connectToPeer(this.state.form).then(this.toggle);
+    this.connectToPeer(this.state.form)
+      .then(this.toggle)
+      .catch(error => this.setState({ error }));
   };
 
   formUpdated = form => {
@@ -32,7 +37,7 @@ export class ConnectPeerModal extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ pubkey, host }),
-    });
+    }).then(parseJson);
   };
 
   render() {
@@ -44,6 +49,7 @@ export class ConnectPeerModal extends React.Component {
         <Modal isOpen={this.state.open} toggle={this.toggle}>
           <ModalHeader>Connect to peer</ModalHeader>
           <ModalBody>
+            <ModalAlert error={this.state.error} />
             <ConnectPeerForm onChange={this.formUpdated} />
           </ModalBody>
           <ModalFooter>

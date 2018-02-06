@@ -2,6 +2,8 @@ import React from 'React';
 import PropTypes from 'prop-types';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
 import { SendPaymentForm } from './components/send-payment-form';
+import { ModalAlert } from '../../components/modal-alert';
+import { parseJson } from '../../services/rest-helpers';
 
 export class SendPaymentModal extends React.Component {
   static propTypes = {
@@ -11,14 +13,17 @@ export class SendPaymentModal extends React.Component {
   state = {
     open: false,
     form: undefined,
+    error: undefined,
   };
 
   toggle = () => {
-    this.setState({ open: !this.state.open });
+    this.setState({ open: !this.state.open, error: undefined });
   };
 
   ok = () => {
-    this.sendPayment(this.state.form).then(this.toggle);
+    this.sendPayment(this.state.form)
+      .then(this.toggle)
+      .catch(error => this.setState({ error }));
   };
 
   sendPayment = ({ payment_request }) => {
@@ -28,7 +33,7 @@ export class SendPaymentModal extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ payment_request }),
-    });
+    }).then(parseJson);
   };
 
   formChanged = form => {
@@ -37,6 +42,7 @@ export class SendPaymentModal extends React.Component {
 
   render() {
     let valid = this.state.form && this.state.form.valid;
+    let { error } = this.state;
     return (
       <div>
         <Button color="warning" size="sm" onClick={this.toggle}>
@@ -45,6 +51,7 @@ export class SendPaymentModal extends React.Component {
         <Modal isOpen={this.state.open} toggle={this.toggle}>
           <ModalHeader>Send payment</ModalHeader>
           <ModalBody>
+            <ModalAlert error={error} />
             <SendPaymentForm formChanged={this.formChanged} />
           </ModalBody>
           <ModalFooter>

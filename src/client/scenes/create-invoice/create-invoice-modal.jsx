@@ -2,6 +2,8 @@ import React from 'React';
 import PropTypes from 'prop-types';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
 import { CreateInvoiceForm } from './components/create-invoice-form';
+import { ModalAlert } from '../../components/modal-alert';
+import { parseJson } from '../../services/rest-helpers';
 
 export class CreateInvoiceModal extends React.Component {
   static propTypes = {
@@ -11,14 +13,17 @@ export class CreateInvoiceModal extends React.Component {
   state = {
     open: false,
     form: undefined,
+    error: undefined,
   };
 
   toggle = () => {
-    this.setState({ open: !this.state.open });
+    this.setState({ open: !this.state.open, error: undefined });
   };
 
   ok = () => {
-    this.createInvoice(this.state.form).then(this.toggle);
+    this.createInvoice(this.state.form)
+      .then(this.toggle)
+      .catch(error => this.setState({ error }));
   };
 
   createInvoice = ({ memo, value }) => {
@@ -28,7 +33,7 @@ export class CreateInvoiceModal extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ memo, value }),
-    });
+    }).then(parseJson);
   };
 
   formChanged = form => {
@@ -37,7 +42,7 @@ export class CreateInvoiceModal extends React.Component {
 
   render() {
     let valid = this.state.form && this.state.form.valid;
-    let { open } = this.state;
+    let { open, error } = this.state;
     return (
       <div>
         <Button color="warning" size="sm" onClick={this.toggle}>
@@ -46,6 +51,7 @@ export class CreateInvoiceModal extends React.Component {
         <Modal isOpen={open} toggle={this.toggle}>
           <ModalHeader>Create invoice</ModalHeader>
           <ModalBody>
+            <ModalAlert error={error} />
             <CreateInvoiceForm formChanged={this.formChanged} />
           </ModalBody>
           <ModalFooter>

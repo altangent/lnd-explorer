@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import { Modal, ModalHeader, ModalFooter, ModalBody, Button } from 'reactstrap';
 import { OpenChannelForm } from './components/open-channel-form';
+import { ModalAlert } from '../../components/modal-alert';
+import { parseJson } from '../../services/rest-helpers';
 
 export class OpenChannelModal extends React.Component {
   static propTypes = {
@@ -14,11 +16,12 @@ export class OpenChannelModal extends React.Component {
     open: false,
     peers: undefined,
     form: undefined,
+    error: undefined,
   };
 
   toggle = () => {
     if (!this.state.open) this.loadPeers();
-    this.setState({ open: !this.state.open });
+    this.setState({ open: !this.state.open, error: undefined });
   };
 
   ok = () => {
@@ -27,7 +30,9 @@ export class OpenChannelModal extends React.Component {
       target_peer_id: selectedPeer,
       local_funding_amount: localAmount,
       push_sat: pushAmount,
-    }).then(this.toggle);
+    })
+      .then(this.toggle)
+      .catch(error => this.setState({ error }));
   };
 
   loadPeers = () => {
@@ -43,7 +48,7 @@ export class OpenChannelModal extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ target_peer_id, local_funding_amount, push_sat }),
-    });
+    }).then(parseJson);
   }
 
   formChanged = form => {
@@ -51,15 +56,16 @@ export class OpenChannelModal extends React.Component {
   };
 
   render() {
-    let { peers, form } = this.state;
+    let { open, peers, form, error } = this.state;
     return (
       <div>
         <Button color="warning" size="sm" onClick={this.toggle}>
           Open channel
         </Button>
-        <Modal isOpen={this.state.open} toggle={this.toggle}>
+        <Modal isOpen={open} toggle={this.toggle}>
           <ModalHeader toggle={this.close}>Open channel</ModalHeader>
           <ModalBody>
+            <ModalAlert error={error} />
             <OpenChannelForm peers={peers} onChange={this.formChanged} />
           </ModalBody>
           <ModalFooter>

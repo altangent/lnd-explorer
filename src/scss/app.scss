@@ -7,9 +7,10 @@
 @import './app-variables.scss';
 
 // Components
-@import './components/layout.scss';
 @import './components/btc-amount.scss';
 @import './components/graph.scss';
+@import './components/layout.scss';
+@import './components/modal-alert.scss';
 
 // Scenes
 @import './scenes/toast.scss';

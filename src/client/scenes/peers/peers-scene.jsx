@@ -1,5 +1,6 @@
 import React from 'React';
 import { PeersListCard } from './components/peers-list-card';
+import { Loading } from '../../components/loading';
 
 export class PeersScene extends React.Component {
   constructor() {
@@ -21,7 +22,7 @@ export class PeersScene extends React.Component {
 
   render() {
     let { peers } = this.state;
-    if (!peers) return <div>Loading...</div>;
+    if (!peers) return <Loading />;
     return <PeersListCard peers={peers} />;
   }
 }
