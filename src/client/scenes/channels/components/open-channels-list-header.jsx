@@ -2,6 +2,7 @@ import React from 'React';
 
 export const OpenChannelsListHeader = () => (
   <tr>
+    <th />
     <th>Active</th>
     <th>Remote pub key</th>
     <th>Channel point</th>
@@ -15,8 +16,6 @@ export const OpenChannelsListHeader = () => (
     <th>Fee per kiloweight</th>
     <th>Total sent</th>
     <th>Total recv</th>
-    <th>Num updates</th>
     <th>Pending HTLcs</th>
-    <th />
   </tr>
 );

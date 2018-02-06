@@ -3,7 +3,7 @@ import { Table } from 'reactstrap';
 
 export const ChannelsList = ({ ListHeaderComponent, ListItemComponent, channels }) => {
   return (
-    <Table>
+    <Table responsive>
       <thead>
         <ListHeaderComponent />
       </thead>

@@ -8,6 +8,9 @@ import { CloseChannelModal } from '../../close-channel/close-channel-modal';
 export const OpenChannelsListItem = ({ channel }) => (
   <tr>
     <td>
+      <CloseChannelModal channel={channel} />
+    </td>
+    <td>
       <BoolValue value={channel.active} />
     </td>
     <td>
@@ -42,11 +45,7 @@ export const OpenChannelsListItem = ({ channel }) => (
     <td>
       <BtcAmount satoshi={channel.satoshis_recv} />
     </td>
-    <td>{channel.num_updates}</td>
     <td>{channel.pending_htlcs}</td>
-    <td>
-      <CloseChannelModal channel={channel} />
-    </td>
   </tr>
 );
 
