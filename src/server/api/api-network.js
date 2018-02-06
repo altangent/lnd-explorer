@@ -5,6 +5,7 @@ const app = express();
 const cache = new Cache();
 
 app.get('/api/network', (req, res, next) => getNetwork(req, res).catch(next));
+app.get('/api/network/:pub_key', (req, res, next) => getNode(req, res).catch(next));
 app.get('/api/graph', (req, res, next) => getGraph(req, res).catch(next));
 
 module.exports = app;
@@ -31,6 +32,12 @@ setTimeout(() => loadNetworkInfo().catch(console.error), 100);
 async function getNetwork(req, res) {
   let networkInfo = cache.get('networkInfo') || (await loadNetworkInfo());
   res.send({ networkInfo });
+}
+
+async function getNode(req, res) {
+  let { pub_key } = req.params;
+  let node = await lnd.client.getNodeInfo({ pub_key });
+  res.send(node);
 }
 
 async function getGraph(req, res) {

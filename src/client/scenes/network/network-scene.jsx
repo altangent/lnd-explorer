@@ -9,23 +9,30 @@ export class NetworkScene extends React.Component {
     super();
     this.state = {
       networkInfo: undefined,
-      graph: undefined,
+      node: undefined,
     };
   }
 
   fetchData() {
-    Promise.all([
-      fetch('/api/graph').then(res => res.json()),
-      fetch('/api/network').then(res => res.json()),
-    ]).then(([graph, networkInfo]) => this.setState({ graph, networkInfo }));
+    fetch('/api/network')
+      .then(res => res.json())
+      .then(networkInfo => this.setState({ networkInfo: networkInfo.networkInfo }));
   }
+
+  fetchNode(pubKey) {
+    return fetch('/api/network/' + pubKey).then(res => res.json());
+  }
+
+  onNodeSelected = pubKey => {
+    this.fetchNode(pubKey).then(node => this.setState({ node }));
+  };
 
   componentWillMount() {
     this.fetchData();
   }
 
   render() {
-    let { networkInfo } = this.state;
+    let { networkInfo, node } = this.state;
     if (!networkInfo) return <Loading />;
     return (
       <div>
@@ -36,10 +43,10 @@ export class NetworkScene extends React.Component {
         </div>
         <div className="row mb-5">
           <div className="col-sm-7">
-            <NetworkGraphCard />
+            <NetworkGraphCard onNodeSelected={this.onNodeSelected} />
           </div>
           <div className="col-sm-5">
-            <NodeInfoCard />
+            <NodeInfoCard node={node} />
           </div>
         </div>
       </div>
