@@ -6,21 +6,19 @@ import { Hex } from '../../components/hex';
 export class NewAddressModal extends React.Component {
   static propTypes = {
     type: PropTypes.string.isRequired,
+    open: PropTypes.bool.isRequired,
+    toggle: PropTypes.func.isRequired,
   };
 
   state = {
-    open: false,
     address: null,
   };
 
-  open = () => {
-    this.newAddress({ type: this.props.type });
-    this.setState({ open: true });
-  };
-
-  toggle = () => {
-    this.setState({ open: !this.state.open });
-  };
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.open && !this.props.open) {
+      this.newAddress({ type: nextProps.type });
+    }
+  }
 
   newAddress = ({ type }) => {
     fetch('/api/address', {
@@ -37,7 +35,7 @@ export class NewAddressModal extends React.Component {
   render() {
     return (
       <div>
-        <Modal isOpen={this.state.open} toggle={this.toggle}>
+        <Modal isOpen={this.props.open} toggle={this.props.toggle}>
           <ModalHeader>New {this.renderTypeString()} address</ModalHeader>
           <ModalBody>
             <p className="h6">
@@ -45,7 +43,7 @@ export class NewAddressModal extends React.Component {
             </p>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.toggle}>
+            <Button color="primary" onClick={this.props.toggle}>
               Ok
             </Button>
           </ModalFooter>

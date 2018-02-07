@@ -9,35 +9,68 @@ export class ToolsMenu extends React.Component {
 
   state = {
     open: false,
+    nestedWitnessAddressModal: false,
+    witnessAddressModal: false,
+    pubkeyAddressModal: false,
+    signModal: false,
+    verifyModal: false,
   };
 
   toggle = () => {
     this.setState({ open: !this.state.open });
   };
 
+  toggleNestedWitnessAddressModal = () => {
+    this.setState({ nestedWitnessAddressModal: !this.state.nestedWitnessAddressModal });
+  };
+
+  toggleWitnessAddressModal = () => {
+    this.setState({ witnessAddressModal: !this.state.witnessAddressModal });
+  };
+
+  togglePubkeyAddressModal = () => {
+    this.setState({ pubkeyAddressModal: !this.state.pubkeyAddressModal });
+  };
+
+  toggleSignModal = () => {
+    this.setState({ signModal: !this.state.signModal });
+  };
+
+  toggleVerifyModal = () => {
+    this.setState({ verifyModal: !this.state.verifyModal });
+  };
+
   render() {
     return (
       <Dropdown isOpen={this.state.open} toggle={this.toggle} nav>
-        <NewAddressModal type="0" ref={c => (this.p2wkhAddressModal = c)} />
-        <NewAddressModal type="1" ref={c => (this.np2wkhAddressModal = c)} />
-        <NewAddressModal type="2" ref={c => (this.p2pkhAddressModal = c)} />
-        <SignMessageModal ref={c => (this.signMessageModal = c)} />
-        <VerifyMessageModal ref={c => (this.VerifyMessageModal = c)} />
+        <NewAddressModal
+          type="0"
+          open={this.state.witnessAddressModal}
+          toggle={this.toggleWitnessAddressModal}
+        />
+        <NewAddressModal
+          type="1"
+          open={this.state.nestedWitnessAddressModal}
+          toggle={this.toggleNestedWitnessAddressModal}
+        />
+        <NewAddressModal
+          type="2"
+          open={this.state.pubkeyAddressModal}
+          toggle={this.togglePubkeyAddressModal}
+        />
+        <SignMessageModal open={this.state.signModal} toggle={this.toggleSignModal} />
+        <VerifyMessageModal open={this.state.verifyModal} toggle={this.toggleVerifyModal} />
         <DropdownToggle nav caret>
           Tools
         </DropdownToggle>
         <DropdownMenu>
-          <DropdownItem onClick={() => this.np2wkhAddressModal.open()}>
+          <DropdownItem onClick={this.toggleNestedWitnessAddressModal}>
             New np2wkh address
           </DropdownItem>
-          <DropdownItem onClick={() => this.p2wkhAddressModal.open()}>
-            New p2wkh address
-          </DropdownItem>
-          <DropdownItem onClick={() => this.p2pkhAddressModal.open()}>
-            New p2pkh address
-          </DropdownItem>
-          <DropdownItem onClick={() => this.signMessageModal.open()}>Sign message</DropdownItem>
-          <DropdownItem onClick={() => this.VerifyMessageModal.open()}>Verify message</DropdownItem>
+          <DropdownItem onClick={this.toggleWitnessAddressModal}>New p2wkh address</DropdownItem>
+          <DropdownItem onClick={this.togglePubkeyAddressModal}>New p2pkh address</DropdownItem>
+          <DropdownItem onClick={this.toggleSignModal}>Sign message</DropdownItem>
+          <DropdownItem onClick={this.toggleVerifyModal}>Verify message</DropdownItem>
         </DropdownMenu>
       </Dropdown>
     );

@@ -1,4 +1,5 @@
 import React from 'React';
+import PropTypes from 'prop-types';
 import {
   Modal,
   ModalHeader,
@@ -13,22 +14,16 @@ import { Hex } from '../../components/hex';
 import { BoolValue } from '../../components/bool-value';
 
 export class VerifyMessageModal extends React.Component {
-  static propTypes = {};
+  static propTypes = {
+    open: PropTypes.bool.isRequired,
+    toggle: PropTypes.func.isRequired,
+  };
 
   state = {
-    open: false,
     msg: '',
     signature: '',
     debounceTimeout: undefined,
     verification: undefined,
-  };
-
-  open = () => {
-    this.toggle();
-  };
-
-  toggle = () => {
-    this.setState({ open: !this.state.open });
   };
 
   verifyMessage = () => {
@@ -53,12 +48,12 @@ export class VerifyMessageModal extends React.Component {
   debounceVerifyMessage = () => {
     clearTimeout(this.state.debounceTimeout);
     let timeout = setTimeout(this.verifyMessage, 300);
-    setTimeout({ debounceTimeout: timeout });
+    this.setState({ debounceTimeout: timeout });
   };
 
   render() {
     return (
-      <Modal isOpen={this.state.open} toggle={this.toggle}>
+      <Modal isOpen={this.props.open} toggle={this.props.toggle}>
         <ModalHeader>Verify message</ModalHeader>
         <ModalBody>
           <div className="row mb-3">
@@ -88,7 +83,7 @@ export class VerifyMessageModal extends React.Component {
           {this.renderVerification()}
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={this.toggle}>
+          <Button color="primary" onClick={this.props.toggle}>
             Close
           </Button>
         </ModalFooter>

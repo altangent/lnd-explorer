@@ -15,22 +15,15 @@ import { Hex } from '../../components/hex';
 
 export class SignMessageModal extends React.Component {
   static propTypes = {
+    open: PropTypes.bool.isRequired,
+    toggle: PropTypes.func.isRequired,
     messageSigned: PropTypes.func,
   };
 
   state = {
-    open: false,
     msg: '',
     signedMessage: undefined,
     debounceTimeout: undefined,
-  };
-
-  open = () => {
-    this.toggle();
-  };
-
-  toggle = () => {
-    this.setState({ open: !this.state.open });
   };
 
   signMessage = () => {
@@ -61,7 +54,7 @@ export class SignMessageModal extends React.Component {
 
   render() {
     return (
-      <Modal isOpen={this.state.open} toggle={this.toggle}>
+      <Modal isOpen={this.props.open} toggle={this.props.toggle}>
         <ModalHeader>Sign message</ModalHeader>
         <ModalBody>
           <div className="mb-3">
@@ -79,7 +72,7 @@ export class SignMessageModal extends React.Component {
           {this.renderSignedMessage()}
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={this.toggle}>
+          <Button color="primary" onClick={this.props.toggle}>
             Ok
           </Button>
         </ModalFooter>
