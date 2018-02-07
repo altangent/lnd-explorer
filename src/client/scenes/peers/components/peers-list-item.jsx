@@ -4,7 +4,7 @@ import { Hex } from '../../../components/hex';
 import { BtcAmount } from '../../../components/btc-amount';
 import { DisconnectPeerModal } from '../../disconnect-peer/disconnect-peer-modal';
 
-export const PeerListItem = ({ peer }) => (
+export const PeerListItem = ({ peer, onPeerDisconnected }) => (
   <tr>
     <td>{peer.peer_id}</td>
     <td>
@@ -21,11 +21,12 @@ export const PeerListItem = ({ peer }) => (
     </td>
     <td>{peer.ping_time / 1e3}ms</td>
     <td>
-      <DisconnectPeerModal peer={peer} />
+      <DisconnectPeerModal peer={peer} onPeerDisconnected={onPeerDisconnected} />
     </td>
   </tr>
 );
 
 PeerListItem.propTypes = {
   peer: PropTypes.object.isRequired,
+  onPeerDisconnected: PropTypes.func,
 };

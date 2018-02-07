@@ -1,8 +1,9 @@
-import React from 'React';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Table } from 'reactstrap';
 import { PeerListItem } from './peers-list-item';
 
-export const PeersList = ({ peers }) => (
+export const PeersList = ({ peers, onPeerDisconnected }) => (
   <Table>
     <thead>
       <tr>
@@ -17,6 +18,19 @@ export const PeersList = ({ peers }) => (
         <th />
       </tr>
     </thead>
-    <tbody>{peers.map(peer => <PeerListItem key={'peer_' + peer.peer_id} peer={peer} />)}</tbody>
+    <tbody>
+      {peers.map(peer => (
+        <PeerListItem
+          key={'peer_' + peer.peer_id}
+          peer={peer}
+          onPeerDisconnected={onPeerDisconnected}
+        />
+      ))}
+    </tbody>
   </Table>
 );
+
+PeersList.propTypes = {
+  peers: PropTypes.array.isRequired,
+  onPeerDisconnected: PropTypes.func,
+};

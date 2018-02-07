@@ -7,6 +7,7 @@ import { parseJson } from '../../services/rest-helpers';
 export class DisconnectPeerModal extends React.Component {
   static propTypes = {
     peer: PropTypes.object.isRequired,
+    onPeerDisconnected: PropTypes.func,
   };
 
   state = {
@@ -20,6 +21,9 @@ export class DisconnectPeerModal extends React.Component {
 
   ok = () => {
     this.disconnectPeer()
+      .then(peer => {
+        if (this.props.onPeerDisconnected) this.props.onPeerDisconnected(peer);
+      })
       .then(this.toggle)
       .catch(error => this.setState({ error }));
   };

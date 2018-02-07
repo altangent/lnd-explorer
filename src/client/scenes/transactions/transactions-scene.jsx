@@ -6,7 +6,6 @@ import { Loading } from '../../components/loading';
 
 export class TransactionsScene extends React.Component {
   static propTypes = {
-    markAsRead: PropTypes.func,
     newTxs: PropTypes.array,
   };
 
@@ -15,7 +14,7 @@ export class TransactionsScene extends React.Component {
     this.state = {
       txs: undefined,
       page: 1,
-      pagesize: 25,
+      pagesize: 100,
       sortBy: 'num_confirmations',
       sortDir: 'asc',
     };
@@ -34,10 +33,7 @@ export class TransactionsScene extends React.Component {
     fetch('/api/transactions?' + qs.stringify({ page, pagesize, sortBy, sortDir }))
       .then(res => res.json())
       .then(json => json.txs)
-      .then(txs => {
-        this.setState({ txs });
-        this.props.markAsRead(txs);
-      });
+      .then(txs => this.setState({ txs }));
   }
 
   render() {

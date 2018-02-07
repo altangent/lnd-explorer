@@ -10,6 +10,7 @@ export class ConnectPeerModal extends React.Component {
     connectionComplete: PropTypes.func,
     openPubkey: PropTypes.string,
     openHost: PropTypes.string,
+    onPeerConnected: PropTypes.func,
   };
 
   state = {
@@ -31,6 +32,9 @@ export class ConnectPeerModal extends React.Component {
 
   ok = () => {
     this.connectToPeer(this.state)
+      .then(peer => {
+        if (this.props.onPeerConnected) this.props.onPeerConnected(peer);
+      })
       .then(this.toggle)
       .catch(error => this.setState({ error }));
   };

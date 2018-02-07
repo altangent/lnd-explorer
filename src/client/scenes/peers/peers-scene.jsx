@@ -10,11 +10,11 @@ export class PeersScene extends React.Component {
     };
   }
 
-  fetchPeers() {
+  fetchPeers = () => {
     fetch('/api/peers')
       .then(res => res.json())
       .then(data => this.setState(data));
-  }
+  };
 
   componentWillMount() {
     this.fetchPeers();
@@ -23,6 +23,12 @@ export class PeersScene extends React.Component {
   render() {
     let { peers } = this.state;
     if (!peers) return <Loading />;
-    return <PeersListCard peers={peers} />;
+    return (
+      <PeersListCard
+        peers={peers}
+        onPeerConnected={this.fetchPeers}
+        onPeerDisconnected={this.fetchPeers}
+      />
+    );
   }
 }
