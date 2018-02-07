@@ -16,7 +16,7 @@ lnd.connect().then(() => {
   txSub.on('data', wss.broadcastTransaction);
 
   winston.info('subscribing to invoices');
-  let invSub = lnd.client.subscribeToInvoices({});
+  let invSub = lnd.client.subscribeInvoices({});
   invSub.on('data', wss.broadcastInvoice);
 });
 
@@ -38,7 +38,7 @@ app.use(require('./api/api-message'));
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../public/index.html')));
 
 app.use((err, req, res, next) => {
-  console.log(err);
+  winston.error(err);
   res.status(500).json(err);
 });
 

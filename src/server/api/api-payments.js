@@ -1,4 +1,5 @@
 const express = require('express');
+const winston = require('winston');
 const lnd = require('../lnd');
 const wss = require('../wss');
 const app = express();
@@ -27,7 +28,6 @@ async function sendPayment(req, res) {
 
 async function decodePayment(req, res) {
   let { payment_request } = req.body;
-  console.log(payment_request);
   let result = await lnd.client.decodePayReq({ pay_req: payment_request });
   res.send(result);
 }

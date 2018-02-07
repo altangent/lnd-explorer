@@ -1,3 +1,4 @@
+const winston = require('winston');
 const lndAsync = require('lnd-async');
 let _instance;
 
@@ -11,9 +12,9 @@ module.exports = {
 async function connect() {
   try {
     _instance = await lndAsync.connect();
-    console.log('conncted to lnd');
+    winston.info('conncted to lnd');
   } catch (ex) {
-    console.error(ex);
+    winston.error(ex);
     process.exit(1);
   }
 }

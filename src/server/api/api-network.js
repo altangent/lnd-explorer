@@ -1,33 +1,15 @@
 const express = require('express');
+const winston = require('winston');
 const lnd = require('../lnd');
-const Cache = require('cache-base');
+const Cache = require('node-cache');
 const app = express();
-const cache = new Cache();
+const cache = new Cache({ stdTTL: 60 });
 
 app.get('/api/network', (req, res, next) => getNetwork(req, res).catch(next));
 app.get('/api/network/:pub_key', (req, res, next) => getNode(req, res).catch(next));
 app.get('/api/graph', (req, res, next) => getGraph(req, res).catch(next));
 
 module.exports = app;
-
-async function loadGraph() {
-  console.time('loading graph');
-  let data = await lnd.client.describeGraph({});
-  cache.set('networkGraph', data);
-  console.timeEnd('loading graph');
-  return data;
-}
-
-async function loadNetworkInfo() {
-  console.time('loading network info');
-  let data = await lnd.client.getNetworkInfo({});
-  cache.set('networkInfo', data);
-  console.timeEnd('loading network info');
-  return data;
-}
-
-setTimeout(() => loadGraph().catch(console.error), 100);
-setTimeout(() => loadNetworkInfo().catch(console.error), 100);
 
 async function getNetwork(req, res) {
   let networkInfo = cache.get('networkInfo') || (await loadNetworkInfo());
@@ -55,14 +37,14 @@ async function getGraph(req, res) {
 }
 
 function constructNodeMap(data) {
-  console.time('constructing node map');
+  winston.profile('constructing node map');
   let nodeMap = new Map(data.nodes.map(node => [node.pub_key, node]));
-  console.timeEnd('constructing node map');
+  winston.profile('constructing node map');
   return nodeMap;
 }
 
 function constructEdgeMap({ edges }) {
-  console.time('constructing edge map');
+  winston.profile('constructing edge map');
   let edgeMap = new Map();
   for (let edge of edges) {
     if (!edgeMap.has(edge.node1_pub)) edgeMap.set(edge.node1_pub, new Set());
@@ -71,7 +53,7 @@ function constructEdgeMap({ edges }) {
     if (!edgeMap.has(edge.node2_pub)) edgeMap.set(edge.node2_pub, new Set());
     edgeMap.get(edge.node2_pub).add(edge);
   }
-  console.timeEnd('constructing edge map');
+  winston.profile('constructing edge map');
   return edgeMap;
 }
 
@@ -89,7 +71,7 @@ function destructNodeMap(nodeMap, edgeMap) {
 }
 
 function bfs(nodeMap, edgeMap, pubkey, max) {
-  console.time('breadth first search');
+  winston.profile('breadth first search');
   let visited = new Map();
   let start = nodeMap.get(pubkey);
   let nodeQueue = [start];
@@ -112,6 +94,24 @@ function bfs(nodeMap, edgeMap, pubkey, max) {
       if (!visited.has(targetNode.pub_key)) nodeQueue.push(targetNode);
     }
   }
-  console.timeEnd('breadth first search');
+  winston.profile('breadth first search');
   return visited;
+}
+
+///////////////////////////
+
+async function loadGraph() {
+  winston.profile('loading graph');
+  let data = await lnd.client.describeGraph({});
+  cache.set('networkGraph', data);
+  winston.profile('loading graph');
+  return data;
+}
+
+async function loadNetworkInfo() {
+  winston.profile('loading network info');
+  let data = await lnd.client.getNetworkInfo({});
+  cache.set('networkInfo', data);
+  winston.profile('loading network info');
+  return data;
 }

@@ -21,7 +21,6 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "bootstrap": "^4.0.0",
-    "cache-base": "^2.0.2",
     "compression": "^1.7.1",
     "copy-to-clipboard": "^3.0.8",
     "d3": "^4.12.2",
@@ -29,6 +28,7 @@
     "grpc": "^1.8.4",
     "lnd-async": "^1.0.2",
     "moment": "^2.20.1",
+    "node-cache": "^4.1.1",
     "prop-types": "^15.6.0",
     "pug": "^2.0.0-rc.4",
     "react": "^16.2.0",

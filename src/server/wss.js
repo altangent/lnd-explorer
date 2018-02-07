@@ -14,7 +14,6 @@ module.exports = {
 function connect(app) {
   let server = http.Server(app);
   io = socketio(server);
-  io.on('connection', socket => console.log(`socket ${socket.id} is connected`));
   return server;
 }
 
