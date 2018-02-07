@@ -1,4 +1,4 @@
-import React from 'React';
+import React from 'react';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { NewAddressModal } from './new-address/new-address-modal';
 import { SignMessageModal } from './sign-message/sign-message-modal';

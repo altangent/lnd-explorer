@@ -1,4 +1,4 @@
-import React from 'React';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { BoolValue } from '../../../components/bool-value';
 import { BtcAmount } from '../../../components/btc-amount';

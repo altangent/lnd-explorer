@@ -1,4 +1,4 @@
-import React from 'React';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Hex } from '../../../components/hex';
 import { BtcAmount } from '../../../components/btc-amount';

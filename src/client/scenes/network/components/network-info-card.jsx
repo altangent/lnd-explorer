@@ -1,4 +1,4 @@
-import React from 'React';
+import React from 'react';
 import { Card, CardHeader } from 'reactstrap';
 import { DefList, DefListItem, DefListLabel, DefListValue } from '../../../components/def-list';
 import { BtcAmount } from '../../../components/btc-amount';

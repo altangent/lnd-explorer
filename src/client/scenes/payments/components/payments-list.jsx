@@ -1,4 +1,4 @@
-import React from 'React';
+import React from 'react';
 import { Table } from 'reactstrap';
 import { PaymentsListItem } from './payments-list-item';
 

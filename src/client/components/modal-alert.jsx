@@ -1,4 +1,4 @@
-import React from 'React';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 export const ModalAlert = ({ message, alertType, error }) => {

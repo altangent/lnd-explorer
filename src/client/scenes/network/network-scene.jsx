@@ -1,4 +1,4 @@
-import React from 'React';
+import React from 'react';
 import { Loading } from '../../components/loading';
 import { NetworkInfoCard } from './components/network-info-card';
 import { NetworkGraphCard } from './components/network-graph-card';

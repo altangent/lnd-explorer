@@ -1,4 +1,4 @@
-import React from 'React';
+import React from 'react';
 import { Table } from 'reactstrap';
 
 export const ChannelsList = ({ ListHeaderComponent, ListItemComponent, channels }) => {

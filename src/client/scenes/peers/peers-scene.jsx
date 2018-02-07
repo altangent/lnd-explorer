@@ -1,4 +1,4 @@
-import React from 'React';
+import React from 'react';
 import { PeersListCard } from './components/peers-list-card';
 import { Loading } from '../../components/loading';
 
