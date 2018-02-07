@@ -38,6 +38,7 @@ app.use(require('./api/api-message'));
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../public/index.html')));
 
 app.use((err, req, res, next) => {
+  console.log(err);
   res.status(500).json(err);
 });
 

@@ -1,14 +1,27 @@
 import React from 'React';
 import PropTypes from 'prop-types';
-import { Card, CardHeader, ListGroup, list } from 'reactstrap';
+import { Card, CardHeader } from 'reactstrap';
 import { DefList, DefListItem, DefListLabel, DefListValue } from '../../../components/def-list';
 import { Timestamp } from '../../../components/timestamp';
 import { Hex } from '../../../components/hex';
 import { BtcAmount } from '../../../components/btc-amount';
+import { ConnectPeerModal } from '../../connect-peer/connect-peer-modal';
+import { OpenChannelModal } from '../../open-channel/open-channel-modal';
 
 export const NodeInfoCard = ({ node }) => (
   <Card>
-    <CardHeader>Node</CardHeader>
+    <CardHeader>
+      <div className="float-sm-right">
+        <ConnectPeerModal
+          openPubkey={node && node.node.pub_key}
+          openHost={node && node.node.addresses[0] && node.node.addresses[0].addr}
+        />
+      </div>
+      <div className="float-sm-right mr-1">
+        <OpenChannelModal openPubKey={node && node.node.pub_key} />
+      </div>
+      Node
+    </CardHeader>
     {renderNode(node)}
   </Card>
 );
@@ -25,7 +38,7 @@ function renderNode(node) {
       </DefListItem>
       <DefListItem>
         <DefListLabel>Addresses:</DefListLabel>
-        <DefListValue>{node.node.addresses.join(', ')}</DefListValue>
+        <DefListValue>{node.node.addresses.map(a => a.addr).join(',')}</DefListValue>
       </DefListItem>
       <DefListItem>
         <DefListLabel>Last updated:</DefListLabel>

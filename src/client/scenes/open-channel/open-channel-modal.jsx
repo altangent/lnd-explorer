@@ -10,12 +10,16 @@ export class OpenChannelModal extends React.Component {
   static propTypes = {
     resolve: PropTypes.func,
     reject: PropTypes.func,
+    openPubKey: PropTypes.string,
   };
 
   state = {
     open: false,
     peers: undefined,
-    form: undefined,
+    selectedPeer: undefined,
+    localAmount: 0,
+    pushAmount: 0,
+    valid: false,
     error: undefined,
   };
 
@@ -25,7 +29,7 @@ export class OpenChannelModal extends React.Component {
   };
 
   ok = () => {
-    let { selectedPeer, localAmount, pushAmount } = this.state.form;
+    let { selectedPeer, localAmount, pushAmount } = this.state;
     this.openChannel({
       target_peer_id: selectedPeer,
       local_funding_amount: localAmount,
@@ -38,7 +42,10 @@ export class OpenChannelModal extends React.Component {
   loadPeers = () => {
     fetch('/api/peers')
       .then(res => res.json())
-      .then(peers => this.setState({ peers: peers.peers }));
+      .then(peers => {
+        let selectedPeer = peers.peers.find(p => p.pub_key === this.props.openPubKey);
+        this.setState({ peers: peers.peers, selectedPeer: selectedPeer && selectedPeer.peer_id });
+      });
   };
 
   openChannel({ target_peer_id, local_funding_amount, push_sat }) {
@@ -51,12 +58,17 @@ export class OpenChannelModal extends React.Component {
     }).then(parseJson);
   }
 
-  formChanged = form => {
-    this.setState({ form });
+  formChanged = (prop, value) => {
+    let valid = this.validate({ ...this.state, [prop]: value });
+    this.setState({ [prop]: value, valid });
+  };
+
+  validate = ({ selectedPeer, localAmount, pushAmount }) => {
+    return selectedPeer > 0 && localAmount > 0 && pushAmount >= 0;
   };
 
   render() {
-    let { open, peers, form, error } = this.state;
+    let { open, peers, error, valid } = this.state;
     return (
       <div>
         <Button color="warning" size="sm" onClick={this.toggle}>
@@ -66,10 +78,10 @@ export class OpenChannelModal extends React.Component {
           <ModalHeader toggle={this.close}>Open channel</ModalHeader>
           <ModalBody>
             <ModalAlert error={error} />
-            <OpenChannelForm peers={peers} onChange={this.formChanged} />
+            <OpenChannelForm peers={peers} onChange={this.formChanged} {...this.state} />
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.ok} disabled={!form || !form.valid}>
+            <Button color="primary" onClick={this.ok} disabled={!valid}>
               Open
             </Button>
             <Button className="secondary" onClick={this.toggle}>

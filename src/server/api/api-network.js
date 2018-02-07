@@ -95,7 +95,7 @@ function bfs(nodeMap, edgeMap, pubkey, max) {
   let nodeQueue = [start];
 
   while (visited.size < max) {
-    let node = nodeQueue.pop();
+    let node = nodeQueue.shift();
     if (!node) break;
 
     visited.set(node.pub_key, node);
@@ -103,6 +103,7 @@ function bfs(nodeMap, edgeMap, pubkey, max) {
     if (!edgeMap.has(node.pub_key)) continue;
 
     let edges = edgeMap.get(node.pub_key).values();
+
     for (let edge of edges) {
       let sourceNode = nodeMap.get(edge.node1_pub);
       if (!visited.has(sourceNode.pub_key)) nodeQueue.push(sourceNode);

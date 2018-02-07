@@ -8,26 +8,35 @@ import { parseJson } from '../../services/rest-helpers';
 export class ConnectPeerModal extends React.Component {
   static propTypes = {
     connectionComplete: PropTypes.func,
+    openPubkey: PropTypes.string,
+    openHost: PropTypes.string,
   };
 
   state = {
     open: false,
-    form: undefined,
+    pubkey: '',
+    host: '',
     error: undefined,
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.openPubkey && nextProps.openPubkey !== this.state.pubkey) {
+      this.setState({ pubkey: nextProps.openPubkey, host: nextProps.openHost });
+    }
+  }
 
   toggle = () => {
     this.setState({ open: !this.state.open, error: undefined });
   };
 
   ok = () => {
-    this.connectToPeer(this.state.form)
+    this.connectToPeer(this.state)
       .then(this.toggle)
       .catch(error => this.setState({ error }));
   };
 
-  formUpdated = form => {
-    this.setState({ form });
+  formUpdated = (key, value) => {
+    this.setState({ [key]: value });
   };
 
   connectToPeer = ({ pubkey, host }) => {
@@ -50,7 +59,11 @@ export class ConnectPeerModal extends React.Component {
           <ModalHeader>Connect to peer</ModalHeader>
           <ModalBody>
             <ModalAlert error={this.state.error} />
-            <ConnectPeerForm onChange={this.formUpdated} />
+            <ConnectPeerForm
+              onChange={this.formUpdated}
+              pubkey={this.state.pubkey}
+              host={this.state.host}
+            />
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.ok}>

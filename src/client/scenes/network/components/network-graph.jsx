@@ -36,7 +36,7 @@ export class NetworkGraph extends React.Component {
 
     let width = svg.attr('width');
     let height = svg.attr('height');
-    let maxNodes = 50;
+    let maxNodes = 100;
 
     fetch('/api/home')
       .then(res => res.json())

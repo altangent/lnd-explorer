@@ -5,29 +5,16 @@ import { Form, FormGroup, Label, Input } from 'reactstrap';
 export class ConnectPeerForm extends React.Component {
   static propTypes = {
     onChange: PropTypes.func.isRequired,
+    pubkey: PropTypes.string,
+    host: PropTypes.string,
   };
-
-  state = {
-    valid: false,
-    pubkey: '',
-    host: '',
-  };
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState !== this.state) this.props.onChange(this.state);
-  }
 
   formChanged = (key, value) => {
-    let valid = this.validate({ ...this.state, [key]: value });
-    this.setState({ [key]: value, valid });
-  };
-
-  validate = ({ pubkey, host }) => {
-    return pubkey && host;
+    this.props.onChange(key, value);
   };
 
   render() {
-    let { pubkey, host } = this.state;
+    let { pubkey, host } = this.props;
     return (
       <Form>
         <FormGroup>
