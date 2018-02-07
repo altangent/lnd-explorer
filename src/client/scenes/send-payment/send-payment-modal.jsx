@@ -4,6 +4,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
 import { SendPaymentForm } from './components/send-payment-form';
 import { ModalAlert } from '../../components/modal-alert';
 import { parseJson } from '../../services/rest-helpers';
+import { DecodedPaymentRequest } from './components/decoded-payment-request';
 
 export class SendPaymentModal extends React.Component {
   static propTypes = {
@@ -13,6 +14,7 @@ export class SendPaymentModal extends React.Component {
   state = {
     open: false,
     form: undefined,
+    payreq: undefined,
     error: undefined,
   };
 
@@ -36,8 +38,24 @@ export class SendPaymentModal extends React.Component {
     }).then(parseJson);
   };
 
+  decodeInvoice = ({ payment_request }) => {
+    if (payment_request) {
+      fetch('/api/payment/decode', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ payment_request }),
+      })
+        .then(parseJson)
+        .then(payreq => this.setState({ payreq }))
+        .catch(error => this.setState({ error }));
+    }
+  };
+
   formChanged = form => {
     this.setState({ form });
+    this.decodeInvoice(form);
   };
 
   render() {
@@ -53,6 +71,7 @@ export class SendPaymentModal extends React.Component {
           <ModalBody>
             <ModalAlert error={error} />
             <SendPaymentForm formChanged={this.formChanged} />
+            <DecodedPaymentRequest payreq={this.state.payreq} />
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.ok} disabled={!valid}>
