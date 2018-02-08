@@ -44,63 +44,69 @@ export class Layout extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="layout">
         <ToastContainer />
-        <Navbar className="main-navbar" dark expand="md">
-          <NavbarBrand tag={Link} to="/">
-            <img src="/public/lnd-explorer.png" alt="LND Explorer" />
-          </NavbarBrand>
-          <NavbarToggler onClick={this.toggle} />
-          <Collapse navbar isOpen={this.state.isOpen}>
-            <Nav className="ml-auto" navbar>
-              <NavItem>
-                <NavLink tag={Link} to="/">
-                  Info
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={Link} to="/transactions">
-                  Transactions
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={Link} to="/peers">
-                  Peers
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={Link} to="/channels">
-                  Channels
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={Link} to="/invoices">
-                  Invoices
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={Link} to="/payments">
-                  Payments
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={Link} to="/network">
-                  Network
-                </NavLink>
-              </NavItem>
-              <ToolsMenu />
-            </Nav>
-          </Collapse>
-        </Navbar>
-        <div className="container-fluid mt-3">
-          <Route exact path="/" component={HomeScene} />
-          <Route path="/transactions" component={TransactionsScene} />
-          <Route path="/peers" component={PeersScene} />
-          <Route path="/channels" component={ChannelsScene} />
-          <Route path="/invoices" component={InvoicesScene} />
-          <Route path="/payments" component={PaymentsScene} />
-          <Route path="/network" component={NetworkScene} />
+        <div className="content">
+          <Navbar className="main-navbar" dark expand="md">
+            <NavbarBrand tag={Link} to="/">
+              <img src="/public/lnd-explorer.png" alt="LND Explorer" />
+            </NavbarBrand>
+            <NavbarToggler onClick={this.toggle} />
+            <Collapse navbar isOpen={this.state.isOpen}>
+              <Nav className="ml-auto" navbar>
+                <NavItem>
+                  <NavLink tag={Link} to="/">
+                    Info
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={Link} to="/transactions">
+                    Transactions
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={Link} to="/peers">
+                    Peers
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={Link} to="/channels">
+                    Channels
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={Link} to="/invoices">
+                    Invoices
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={Link} to="/payments">
+                    Payments
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={Link} to="/network">
+                    Network
+                  </NavLink>
+                </NavItem>
+                <ToolsMenu />
+              </Nav>
+            </Collapse>
+          </Navbar>
+          <div className="container-fluid mt-3">
+            <Route exact path="/" component={HomeScene} />
+            <Route path="/transactions" component={TransactionsScene} />
+            <Route path="/peers" component={PeersScene} />
+            <Route path="/channels" component={ChannelsScene} />
+            <Route path="/invoices" component={InvoicesScene} />
+            <Route path="/payments" component={PaymentsScene} />
+            <Route path="/network" component={NetworkScene} />
+          </div>
         </div>
+        <footer className="footer">
+          Fork on <a href="https://github.com/altangent/lnd-explorer">GitHub</a> | Powered by{' '}
+          <a href="https://github.com/lightningnetwork/lnd">LND</a>
+        </footer>
       </div>
     );
   }
