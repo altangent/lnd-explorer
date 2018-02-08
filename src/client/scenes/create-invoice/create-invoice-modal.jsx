@@ -48,7 +48,7 @@ export class CreateInvoiceModal extends React.Component {
     let { open, error } = this.state;
     return (
       <div>
-        <Button color="warning" size="sm" onClick={this.toggle}>
+        <Button color="primary" size="sm" onClick={this.toggle}>
           New invoice
         </Button>
         <Modal isOpen={open} toggle={this.toggle}>
@@ -58,10 +58,10 @@ export class CreateInvoiceModal extends React.Component {
             <CreateInvoiceForm formChanged={this.formChanged} />
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.ok} disabled={!valid}>
+            <Button color="primary" size="sm" onClick={this.ok} disabled={!valid}>
               Create
             </Button>
-            <Button color="secondary" onClick={this.toggle}>
+            <Button color="secondary" size="sm" onClick={this.toggle}>
               Cancel
             </Button>
           </ModalFooter>

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardHeader } from 'reactstrap';
+import { Card, CardHeader, CardBody } from 'reactstrap';
 import { DefList, DefListItem, DefListLabel, DefListValue } from '../../../components/def-list';
 import { Timestamp } from '../../../components/timestamp';
 import { Hex } from '../../../components/hex';
@@ -20,16 +20,16 @@ export const NodeInfoCard = ({ node }) => (
       <div className="float-sm-right mr-1">
         <OpenChannelModal openPubKey={node && node.node.pub_key} />
       </div>
-      Node
+      <div className="card-header-title">Node</div>
     </CardHeader>
-    {renderNode(node)}
+    <CardBody>{renderNode(node)}</CardBody>
   </Card>
 );
 
 function renderNode(node) {
   if (!node) return '';
   return (
-    <DefList labelWidth="3">
+    <DefList labelWidth={3}>
       <DefListItem>
         <DefListLabel>Pub key:</DefListLabel>
         <DefListValue>

@@ -41,7 +41,7 @@ export class CloseChannelModal extends React.Component {
     if (!channel) return <div />;
     return (
       <div>
-        <Button color="warning" size="sm" onClick={this.toggle}>
+        <Button color="primary" size="sm" onClick={this.toggle}>
           Close
         </Button>
         <Modal isOpen={open} toggle={this.toggle}>
@@ -88,10 +88,10 @@ export class CloseChannelModal extends React.Component {
             </div>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.ok}>
+            <Button color="primary" size="sm" onClick={this.ok}>
               Close
             </Button>
-            <Button color="secondary" onClick={this.toggle}>
+            <Button color="secondary" size="sm" onClick={this.toggle}>
               Cancel
             </Button>
           </ModalFooter>

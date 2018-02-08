@@ -71,7 +71,7 @@ export class OpenChannelModal extends React.Component {
     let { open, peers, error, valid } = this.state;
     return (
       <div>
-        <Button color="warning" size="sm" onClick={this.toggle}>
+        <Button color="primary" size="sm" onClick={this.toggle}>
           Open channel
         </Button>
         <Modal isOpen={open} toggle={this.toggle}>
@@ -81,10 +81,10 @@ export class OpenChannelModal extends React.Component {
             <OpenChannelForm peers={peers} onChange={this.formChanged} {...this.state} />
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.ok} disabled={!valid}>
+            <Button color="primary" size="sm" onClick={this.ok} disabled={!valid}>
               Open
             </Button>
-            <Button className="secondary" onClick={this.toggle}>
+            <Button className="secondary" size="sm" onClick={this.toggle}>
               Cancel
             </Button>
           </ModalFooter>

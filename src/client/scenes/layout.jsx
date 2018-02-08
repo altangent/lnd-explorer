@@ -46,9 +46,9 @@ export class Layout extends React.Component {
     return (
       <div>
         <ToastContainer />
-        <Navbar className="main-navbar" light expand="md">
+        <Navbar className="main-navbar" dark expand="md">
           <NavbarBrand tag={Link} to="/">
-            &#x26A1; LND Explorer
+            <img src="/public/lnd-explorer.png" alt="LND Explorer" />
           </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse navbar isOpen={this.state.isOpen}>

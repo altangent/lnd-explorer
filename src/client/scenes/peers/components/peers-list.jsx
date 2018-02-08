@@ -7,6 +7,7 @@ export const PeersList = ({ peers, onPeerDisconnected }) => (
   <Table>
     <thead>
       <tr>
+        <th />
         <th>Peer Id</th>
         <th>Pub key</th>
         <th>Address</th>
@@ -15,7 +16,6 @@ export const PeersList = ({ peers, onPeerDisconnected }) => (
         <th>Sat sent</th>
         <th>Sat recv</th>
         <th>Ping time</th>
-        <th />
       </tr>
     </thead>
     <tbody>

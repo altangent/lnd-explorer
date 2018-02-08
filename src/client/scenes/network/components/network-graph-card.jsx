@@ -4,7 +4,9 @@ import { NetworkGraph } from './network-graph';
 
 export const NetworkGraphCard = ({ onNodeSelected }) => (
   <Card>
-    <CardHeader>Network</CardHeader>
+    <CardHeader>
+      <div className="card-header-title">Network</div>
+    </CardHeader>
     <NetworkGraph onNodeSelected={onNodeSelected} />
   </Card>
 );

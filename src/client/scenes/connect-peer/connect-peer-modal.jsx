@@ -56,7 +56,7 @@ export class ConnectPeerModal extends React.Component {
   render() {
     return (
       <div>
-        <Button color="warning" size="sm" onClick={this.toggle}>
+        <Button color="primary" size="sm" onClick={this.toggle}>
           Connect to peer
         </Button>
         <Modal isOpen={this.state.open} toggle={this.toggle}>
@@ -70,10 +70,10 @@ export class ConnectPeerModal extends React.Component {
             />
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.ok}>
+            <Button color="primary" size="sm" onClick={this.ok}>
               Connect
             </Button>
-            <Button color="secondary" onClick={this.toggle}>
+            <Button color="secondary" size="sm" onClick={this.toggle}>
               Cancel
             </Button>
           </ModalFooter>

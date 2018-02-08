@@ -1,42 +1,43 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Popover, PopoverBody } from 'reactstrap';
 import { EntypoCopy } from 'react-entypo';
 import copy from 'copy-to-clipboard';
 import uuid4 from 'uuid/v4';
 
 export class Hex extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.toggle = this.toggle.bind(this);
-    this.mouseEntered = this.mouseEntered.bind(this);
-    this.mouseExited = this.mouseExited.bind(this);
-    this.copyClicked = this.copyClicked.bind(this);
-    this.state = {
-      id: uuid4(),
-      popoverOpen: false,
-    };
-  }
+  static propTypes = {
+    id: PropTypes.string,
+    value: PropTypes.string,
+    showStart: PropTypes.bool,
+    substrLength: PropTypes.number,
+  };
+
+  state = {
+    id: uuid4(),
+    popoverOpen: false,
+  };
 
   componentWillMount() {
     if (this.props.id) this.setState({ id: this.props.id });
   }
 
-  toggle() {
+  toggle = () => {
     this.setState({ popoverOpen: !this.state.popoverOpen });
-  }
+  };
 
-  mouseEntered() {
+  mouseEntered = () => {
     this.setState({ popoverOpen: true });
-  }
+  };
 
-  mouseExited() {
+  mouseExited = () => {
     this.setState({ popoverOpen: false });
-  }
+  };
 
-  copyClicked(e) {
+  copyClicked = e => {
     e.preventDefault();
     copy(this.props.value);
-  }
+  };
 
   _truncateValue(value, showStart, substrLength) {
     if (showStart) return value.substr(0, substrLength);

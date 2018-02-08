@@ -1,18 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardHeader } from 'reactstrap';
+import { Card, CardHeader, CardBody } from 'reactstrap';
 import { PaymentsList } from './payments-list';
 import { SendPaymentModal } from '../../send-payment/send-payment-modal';
 
 export const PaymentsListCard = ({ payments }) => (
   <Card>
     <CardHeader>
-      Payments
+      <span className="card-header-title">Payments</span>
       <div className="float-sm-right">
         <SendPaymentModal />
       </div>
     </CardHeader>
-    <PaymentsList payments={payments} />
+    <CardBody>
+      <PaymentsList payments={payments} />
+    </CardBody>
   </Card>
 );
 

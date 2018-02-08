@@ -6,6 +6,9 @@ import { DisconnectPeerModal } from '../../disconnect-peer/disconnect-peer-modal
 
 export const PeerListItem = ({ peer, onPeerDisconnected }) => (
   <tr>
+    <td>
+      <DisconnectPeerModal peer={peer} onPeerDisconnected={onPeerDisconnected} />
+    </td>
     <td>{peer.peer_id}</td>
     <td>
       <Hex value={peer.pub_key} />
@@ -20,9 +23,6 @@ export const PeerListItem = ({ peer, onPeerDisconnected }) => (
       <BtcAmount satoshi={peer.sat_recv} />
     </td>
     <td>{peer.ping_time / 1e3}ms</td>
-    <td>
-      <DisconnectPeerModal peer={peer} onPeerDisconnected={onPeerDisconnected} />
-    </td>
   </tr>
 );
 

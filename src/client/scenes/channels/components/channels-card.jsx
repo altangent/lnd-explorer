@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import PropTypes from 'prop-types';
 import { Card, CardHeader, CardBody, Nav, NavItem, NavLink, Badge } from 'reactstrap';
 import { ChannelsList } from './channels-list';
 import { OpenChannelModal } from '../../open-channel/open-channel-modal';
@@ -22,7 +21,7 @@ export const ChannelsCard = withRouter(({ location, openChannels, pendingChannel
         <div className="float-sm-right">
           <OpenChannelModal />
         </div>
-        Channels
+        <span className="h3">Channels</span>
       </CardHeader>
       <CardBody>
         <Nav tabs>
@@ -109,5 +108,10 @@ export const ChannelsCard = withRouter(({ location, openChannels, pendingChannel
 
 function renderBadge(count) {
   if (!count) return '';
-  else return <Badge color="light">{count}</Badge>;
+  else
+    return (
+      <Badge color="light" pill>
+        {count}
+      </Badge>
+    );
 }

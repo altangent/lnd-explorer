@@ -16,6 +16,5 @@ export const OpenChannelsListHeader = () => (
     <th>Fee per kiloweight</th>
     <th>Total sent</th>
     <th>Total recv</th>
-    <th>Pending HTLcs</th>
   </tr>
 );

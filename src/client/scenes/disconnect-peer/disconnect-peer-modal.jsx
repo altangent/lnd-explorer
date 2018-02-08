@@ -44,7 +44,7 @@ export class DisconnectPeerModal extends React.Component {
     let { error } = this.state;
     return (
       <div>
-        <Button color="warning" size="sm" onClick={this.toggle}>
+        <Button color="primary" size="sm" onClick={this.toggle}>
           Disconnect
         </Button>
         <Modal isOpen={this.state.open} toggle={this.toggle}>
@@ -62,10 +62,10 @@ export class DisconnectPeerModal extends React.Component {
             </div>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.ok}>
+            <Button color="primary" size="sm" onClick={this.ok}>
               Disconnect
             </Button>
-            <Button color="secondary" onClick={this.toggle}>
+            <Button color="secondary" size="sm" onClick={this.toggle}>
               Cancel
             </Button>
           </ModalFooter>

@@ -63,7 +63,7 @@ export class SendPaymentModal extends React.Component {
     let { error } = this.state;
     return (
       <div>
-        <Button color="warning" size="sm" onClick={this.toggle}>
+        <Button color="primary" size="sm" onClick={this.toggle}>
           Send payment
         </Button>
         <Modal isOpen={this.state.open} toggle={this.toggle}>
@@ -74,10 +74,10 @@ export class SendPaymentModal extends React.Component {
             <DecodedPaymentRequest payreq={this.state.payreq} />
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.ok} disabled={!valid}>
+            <Button color="primary" size="sm" onClick={this.ok} disabled={!valid}>
               Send
             </Button>
-            <Button color="secondary" onClick={this.toggle}>
+            <Button color="secondary" size="sm" onClick={this.toggle}>
               Cancel
             </Button>
           </ModalFooter>

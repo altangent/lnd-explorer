@@ -36,16 +36,18 @@ export const OpenChannelsListItem = ({ channel }) => (
       <BtcAmount satoshi={channel.commit_fee} />
     </td>
     <td>
+      <BtcAmount satoshi={channel.commit_weight} />
+    </td>
+    <td>
       <BtcAmount satoshi={channel.fee_per_kw} />
     </td>
 
     <td>
-      <BtcAmount satoshi={channel.satoshis_sent} />
+      <BtcAmount satoshi={channel.total_satoshis_sent} />
     </td>
     <td>
-      <BtcAmount satoshi={channel.satoshis_recv} />
+      <BtcAmount satoshi={channel.total_satoshis_received} />
     </td>
-    <td>{channel.pending_htlcs}</td>
   </tr>
 );
 

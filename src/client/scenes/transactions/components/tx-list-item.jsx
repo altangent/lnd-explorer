@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Hex } from '../../../components/hex';
 import { BtcAmount } from '../../../components/btc-amount';
 import { Timestamp } from '../../../components/timestamp';
@@ -31,3 +32,7 @@ export const TxListItem = ({ tx }) => (
     </td>
   </tr>
 );
+
+TxListItem.propTypes = {
+  tx: PropTypes.object.isRequired,
+};

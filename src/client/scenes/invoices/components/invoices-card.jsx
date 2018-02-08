@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardHeader } from 'reactstrap';
+import { Card, CardHeader, CardBody } from 'reactstrap';
 import { InvoicesList } from './invoices-list';
 import { CreateInvoiceModal } from '../../create-invoice/create-invoice-modal';
 
@@ -8,12 +8,14 @@ export const InvoicesCard = ({ invoices, onInvoiceCreated }) => {
   return (
     <Card>
       <CardHeader>
-        Invoices
+        <span className="card-header-title">Invoices</span>
         <div className="float-sm-right">
           <CreateInvoiceModal onInvoiceCreated={onInvoiceCreated} />
         </div>
       </CardHeader>
-      <InvoicesList invoices={invoices} />
+      <CardBody>
+        <InvoicesList invoices={invoices} />
+      </CardBody>
     </Card>
   );
 };

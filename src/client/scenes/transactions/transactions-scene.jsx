@@ -9,16 +9,13 @@ export class TransactionsScene extends React.Component {
     newTxs: PropTypes.array,
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      txs: undefined,
-      page: 1,
-      pagesize: 100,
-      sortBy: 'num_confirmations',
-      sortDir: 'asc',
-    };
-  }
+  state = {
+    txs: undefined,
+    page: 1,
+    pagesize: 100,
+    sortBy: 'num_confirmations',
+    sortDir: 'asc',
+  };
 
   componentWillMount() {
     this.loadData();

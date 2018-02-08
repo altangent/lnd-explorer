@@ -1,11 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Card, CardHeader } from 'reactstrap';
 import { DefList, DefListItem, DefListLabel, DefListValue } from '../../../components/def-list';
 import { BtcAmount } from '../../../components/btc-amount';
 
 export const NetworkInfoCard = ({ networkInfo }) => (
   <Card>
-    <CardHeader>Network Info</CardHeader>
+    <CardHeader>
+      <div className="card-header-title">Network Info</div>
+    </CardHeader>
     <DefList>
       <DefListItem>
         <DefListLabel>Graph diameter</DefListLabel>
@@ -48,3 +51,7 @@ export const NetworkInfoCard = ({ networkInfo }) => (
     </DefList>
   </Card>
 );
+
+NetworkInfoCard.propTypes = {
+  networkInfo: PropTypes.object.isRequired,
+};
