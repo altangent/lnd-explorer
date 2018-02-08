@@ -4,16 +4,17 @@
 }
 
 .links line.selected {
-  stroke: #bb3333;
+  stroke: #338dc9;
   stroke-width: 2px;
 }
 
 .nodes circle {
   fill: #555555;
-  stroke: #fff;
+  stroke: #aaa;
   stroke-width: 1.5px;
 }
 
 .nodes circle.selected {
-  fill: #bb3333;
+  fill: #00558d;
+  stroke: #338dc9;
 }

@@ -1,35 +1,39 @@
 // bootstrap.scss
 // https://getbootstrap.com/docs/4.0/getting-started/theming/
 
-// //
-// // Color system
-// //
+//
+// Color system
+//
 
-// // stylelint-disable
-// $white:    #fff !default;
-// $gray-100: #f8f9fa !default;
-// $gray-200: #e9ecef !default;
-// $gray-300: #dee2e6 !default;
-// $gray-400: #ced4da !default;
-// $gray-500: #adb5bd !default;
-// $gray-600: #6c757d !default;
-// $gray-700: #495057 !default;
-// $gray-800: #343a40 !default;
-// $gray-900: #212529 !default;
-// $black:    #000 !default;
+// stylelint-disable
+$white: #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black: #000 !default;
 
-// $grays: () !default;
-// $grays: map-merge((
-//   "100": $gray-100,
-//   "200": $gray-200,
-//   "300": $gray-300,
-//   "400": $gray-400,
-//   "500": $gray-500,
-//   "600": $gray-600,
-//   "700": $gray-700,
-//   "800": $gray-800,
-//   "900": $gray-900
-// ), $grays);
+$grays: () !default;
+$grays: map-merge(
+
+  (
+    '100': $gray-100,
+    '200': $gray-200,
+    '300': $gray-300,
+    '400': $gray-400,
+    '500': $gray-500,
+    '600': $gray-600,
+    '700': $gray-700,
+    '800': $gray-800,
+    '900': $gray-900
+  ),
+  $grays
+);
 
 // $blue:    #007bff !default;
 // $indigo:  #6610f2 !default;
@@ -59,14 +63,14 @@
 //   "gray-dark":  $gray-800
 // ), $colors);
 
-// $primary:       $blue !default;
-// $secondary:     $gray-600 !default;
+$primary: #338dc9;
+$secondary: $primary + 24%;
 // $success:       $green !default;
 // $info:          $cyan !default;
 // $warning:       $yellow !default;
 // $danger:        $red !default;
-// $light:         $gray-100 !default;
-// $dark:          $gray-800 !default;
+$light: #222229 + 86%;
+$dark: #222229 - 18%;
 
 // $theme-colors: () !default;
 // $theme-colors: map-merge((
@@ -132,12 +136,16 @@
 // ), $sizes);
 // // stylelint-enable
 
-// // Body
-// //
-// // Settings for the `<body>` element.
+// Body
+//
+// Settings for the `<body>` element.
 
-// $body-bg:                   $white !default;
-// $body-color:                $gray-900 !default;
+$body-bg: #222229;
+$body-color: #bbb;
+
+// Custom App Variables
+$comp-bg: $body-bg + 6%;
+$comp-border-color: $body-bg + 18;
 
 // // Links
 // //
@@ -200,9 +208,9 @@
 // $border-width:                1px !default;
 // $border-color:                $gray-300 !default;
 
-// $border-radius:               .25rem !default;
-// $border-radius-lg:            .3rem !default;
-// $border-radius-sm:            .2rem !default;
+$border-radius: 0;
+$border-radius-lg: 0;
+$border-radius-sm: 0;
 
 // $component-active-color:      $white !default;
 // $component-active-bg:         theme-color("primary") !default;
@@ -284,20 +292,20 @@ $font-size-base: 0.8rem; // Assumes the browser default, typically `16px`
 
 // $hr-margin-y:                 $spacer !default;
 
-// // Tables
-// //
-// // Customizes the `.table` component with basic values, each used across all table variations.
+// Tables
+//
+// Customizes the `.table` component with basic values, each used across all table variations.
 
 // $table-cell-padding:          .75rem !default;
 // $table-cell-padding-sm:       .3rem !default;
 
-// $table-bg:                    transparent !default;
+$table-bg: $comp-bg;
 // $table-accent-bg:             rgba($black, .05) !default;
 // $table-hover-bg:              rgba($black, .075) !default;
 // $table-active-bg:             $table-hover-bg !default;
 
 // $table-border-width:          $border-width !default;
-// $table-border-color:          $gray-300 !default;
+$table-border-color: $comp-border-color;
 
 // $table-head-bg:               $gray-200 !default;
 // $table-head-color:            $gray-700 !default;
@@ -362,7 +370,7 @@ $font-size-base: 0.8rem; // Assumes the browser default, typically `16px`
 // // Allows for customizing button radius independently from global border radius
 // $btn-border-radius:           $border-radius !default;
 // $btn-border-radius-lg:        $border-radius-lg !default;
-// $btn-border-radius-sm:        $border-radius-sm !default;
+$btn-border-radius-sm: 2px;
 
 // $btn-transition:              color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out !default;
 
@@ -380,15 +388,15 @@ $font-size-base: 0.8rem; // Assumes the browser default, typically `16px`
 // $input-padding-x-lg:                    $input-btn-padding-x-lg !default;
 // $input-line-height-lg:                  $input-btn-line-height-lg !default;
 
-// $input-bg:                              $white !default;
+$input-bg: $comp-bg + 36%;
 // $input-disabled-bg:                     $gray-200 !default;
 
-// $input-color:                           $gray-700 !default;
-// $input-border-color:                    $gray-400 !default;
-// $input-border-width:                    $input-btn-border-width !default;
+$input-color: $body-color;
+$input-border-color: $input-bg;
+$input-border-width: 1px;
 // $input-box-shadow:                      inset 0 1px 1px rgba($black, .075) !default;
 
-// $input-border-radius:                   $border-radius !default;
+$input-border-radius: 0.3rem;
 // $input-border-radius-lg:                $border-radius-lg !default;
 // $input-border-radius-sm:                $border-radius-sm !default;
 
@@ -511,26 +519,26 @@ $font-size-base: 0.8rem; // Assumes the browser default, typically `16px`
 // $form-feedback-valid-color:         theme-color("success") !default;
 // $form-feedback-invalid-color:       theme-color("danger") !default;
 
-// // Dropdowns
-// //
-// // Dropdown menu container and contents.
+// Dropdowns
+//
+// Dropdown menu container and contents.
 
 // $dropdown-min-width:                10rem !default;
 // $dropdown-padding-y:                .5rem !default;
 // $dropdown-spacer:                   .125rem !default;
-// $dropdown-bg:                       $white !default;
-// $dropdown-border-color:             rgba($black, .15) !default;
-// $dropdown-border-radius:            $border-radius !default;
-// $dropdown-border-width:             $border-width !default;
-// $dropdown-divider-bg:               $gray-200 !default;
+$dropdown-bg: $comp-bg + 6%;
+$dropdown-border-color: $comp-border-color;
+$dropdown-border-radius: 0.3rem;
+$dropdown-border-width: 0;
+$dropdown-divider-bg: $comp-border-color;
 // $dropdown-box-shadow:               0 .5rem 1rem rgba($black, .175) !default;
 
-// $dropdown-link-color:               $gray-900 !default;
-// $dropdown-link-hover-color:         darken($gray-900, 5%) !default;
-// $dropdown-link-hover-bg:            $gray-100 !default;
+$dropdown-link-color: $body-color;
+$dropdown-link-hover-color: $dropdown-link-color - 6%;
+$dropdown-link-hover-bg: $dropdown-bg + 6%;
 
-// $dropdown-link-active-color:        $component-active-color !default;
-// $dropdown-link-active-bg:           $component-active-bg !default;
+$dropdown-link-active-color: $dropdown-link-color - 6%;
+$dropdown-link-active-bg: $dropdown-bg + 6%;
 
 // $dropdown-link-disabled-color:      $gray-600 !default;
 
@@ -558,13 +566,13 @@ $font-size-base: 0.8rem; // Assumes the browser default, typically `16px`
 // $nav-link-padding-x:                1rem !default;
 // $nav-link-disabled-color:           $gray-600 !default;
 
-// $nav-tabs-border-color:             $gray-300 !default;
-// $nav-tabs-border-width:             $border-width !default;
-// $nav-tabs-border-radius:            $border-radius !default;
-// $nav-tabs-link-hover-border-color:  $gray-200 $gray-200 $nav-tabs-border-color !default;
-// $nav-tabs-link-active-color:        $gray-700 !default;
-// $nav-tabs-link-active-bg:           $body-bg !default;
-// $nav-tabs-link-active-border-color: $gray-300 $gray-300 $nav-tabs-link-active-bg !default;
+$nav-tabs-border-color: transparent;
+$nav-tabs-border-width: 1px;
+$nav-tabs-border-radius: 3px;
+$nav-tabs-link-hover-border-color: transparent;
+$nav-tabs-link-active-color: $body-color;
+$nav-tabs-link-active-bg: $body-bg;
+$nav-tabs-link-active-border-color: transparent;
 
 // $nav-pills-border-radius:           $border-radius !default;
 // $nav-pills-link-active-color:       $component-active-color !default;
@@ -595,12 +603,17 @@ $font-size-base: 0.8rem; // Assumes the browser default, typically `16px`
 // $navbar-dark-toggler-icon-bg:       str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$navbar-dark-color}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"), "#", "%23") !default;
 // $navbar-dark-toggler-border-color:  rgba($white, .1) !default;
 
-// $navbar-light-color:                rgba($black, .5) !default;
-// $navbar-light-hover-color:          rgba($black, .7) !default;
-// $navbar-light-active-color:         rgba($black, .9) !default;
-// $navbar-light-disabled-color:       rgba($black, .3) !default;
-// $navbar-light-toggler-icon-bg:      str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$navbar-light-color}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"), "#", "%23") !default;
-// $navbar-light-toggler-border-color: rgba($black, .1) !default;
+// navbar-light-color: $body-bg + 6%;
+// $navbar-light-hover-color: rgba($black, 0.7) !default;
+// $navbar-light-active-color: rgba($black, 0.9) !default;
+// $navbar-light-disabled-color: rgba($black, 0.3) !default;
+// $navbar-light-toggler-icon-bg: str-replace(
+//     url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$navbar-light-color}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"),
+//     '#',
+//     '%23'
+//   )
+//   !default;
+// $navbar-light-toggler-border-color: rgba($black, 0.1) !default;
 
 // // Pagination
 
@@ -640,12 +653,12 @@ $font-size-base: 0.8rem; // Assumes the browser default, typically `16px`
 
 // $card-spacer-y:                     .75rem !default;
 // $card-spacer-x:                     1.25rem !default;
-// $card-border-width:                 $border-width !default;
+$card-border-width: 0;
 // $card-border-radius:                $border-radius !default;
-// $card-border-color:                 rgba($black, .125) !default;
+$card-border-color: $comp-bg;
 // $card-inner-border-radius:          calc(#{$card-border-radius} - #{$card-border-width}) !default;
-// $card-cap-bg:                       rgba($black, .03) !default;
-// $card-bg:                           $white !default;
+$card-cap-bg: $comp-bg;
+$card-bg: $comp-bg;
 
 // $card-img-overlay-padding:          1.25rem !default;
 
@@ -672,12 +685,12 @@ $font-size-base: 0.8rem; // Assumes the browser default, typically `16px`
 // $tooltip-arrow-height:        .4rem !default;
 // $tooltip-arrow-color:         $tooltip-bg !default;
 
-// // Popovers
+// Popovers
 
 // $popover-font-size:                 $font-size-sm !default;
-// $popover-bg:                        $white !default;
+$popover-bg: $comp-bg + 6%;
 // $popover-max-width:                 276px !default;
-// $popover-border-width:              $border-width !default;
+$popover-border-width: 0;
 // $popover-border-color:              rgba($black, .2) !default;
 // $popover-border-radius:             $border-radius-lg !default;
 // $popover-box-shadow:                0 .25rem .5rem rgba($black, .2) !default;
@@ -708,9 +721,9 @@ $font-size-base: 0.8rem; // Assumes the browser default, typically `16px`
 // $badge-pill-padding-x:              .6em !default;
 // // Use a higher than normal value to ensure completely rounded edges when
 // // customizing padding or font-size on labels.
-// $badge-pill-border-radius:          10rem !default;
+$badge-pill-border-radius: 2rem;
 
-// // Modals
+// Modals
 
 // // Padding applied to the modal body
 // $modal-inner-padding:         1rem !default;
@@ -720,16 +733,16 @@ $font-size-base: 0.8rem; // Assumes the browser default, typically `16px`
 
 // $modal-title-line-height:           $line-height-base !default;
 
-// $modal-content-bg:               $white !default;
-// $modal-content-border-color:     rgba($black, .2) !default;
+$modal-content-bg: $comp-bg;
+// $modal-content-border-color: rgba($black, 0.2) !default;
 // $modal-content-border-width:     $border-width !default;
 // $modal-content-box-shadow-xs:    0 .25rem .5rem rgba($black, .5) !default;
 // $modal-content-box-shadow-sm-up: 0 .5rem 1rem rgba($black, .5) !default;
 
 // $modal-backdrop-bg:           $black !default;
 // $modal-backdrop-opacity:      .5 !default;
-// $modal-header-border-color:   $gray-200 !default;
-// $modal-footer-border-color:   $modal-header-border-color !default;
+$modal-header-border-color: $comp-border-color;
+$modal-footer-border-color: $comp-border-color;
 // $modal-header-border-width:   $modal-content-border-width !default;
 // $modal-footer-border-width:   $modal-header-border-width !default;
 // $modal-header-padding:        1rem !default;
@@ -767,10 +780,10 @@ $font-size-base: 0.8rem; // Assumes the browser default, typically `16px`
 // $progress-bar-animation-timing:     1s linear infinite !default;
 // $progress-bar-transition:           width .6s ease !default;
 
-// // List group
+// List group
 
-// $list-group-bg:                     $white !default;
-// $list-group-border-color:           rgba($black, .125) !default;
+$list-group-bg: $comp-bg;
+$list-group-border-color: $comp-border-color;
 // $list-group-border-width:           $border-width !default;
 // $list-group-border-radius:          $border-radius !default;
 

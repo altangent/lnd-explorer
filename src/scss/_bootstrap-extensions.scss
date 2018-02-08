@@ -1,0 +1,12 @@
+.card-header-title {
+  @extend .h3;
+}
+
+.nav-tabs {
+  .nav-link {
+    background-color: $comp-bg + 3%;
+  }
+  .nav-link:hover {
+    background-color: $comp-bg;
+  }
+}
