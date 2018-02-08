@@ -43,4 +43,7 @@ app.use((err, req, res, next) => {
   res.status(500).json(err);
 });
 
-server.listen(8000, () => winston.info('connected to localhost:8000'));
+let port = parseInt(process.env.SERVER_PORT) || 8000;
+let host = process.env.SERVER_HOST || 'localhost';
+
+server.listen(port, host, () => winston.info(`express listening on ${host}:${port}`));

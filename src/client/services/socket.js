@@ -7,7 +7,7 @@ export class SocketClient extends EventEmitter {
 
   connect() {
     return new Promise((resolve, reject) => {
-      this.socket = io('http://localhost:8000');
+      this.socket = io('/');
       this.socket.on('connect', () => {
         console.log('connected to server');
         resolve();
