@@ -1,7 +1,7 @@
 {
-  "name": "lnd-browser",
+  "name": "lnd-explorer",
   "version": "1.0.0",
-  "description": "Testing a node app connecting to the Lightning Network Daemon",
+  "description": "Explorer for Lightning Network nodes powered by LND",
   "scripts": {
     "start": "NODE_ENV=production node src/server/server",
     "build": "npm-run-all build:*",
@@ -14,7 +14,7 @@
     "watch:server": "nodemon --ignore dist --ignore src/client src/server/server"
   },
   "keywords": [
-    "lnd"
+    "lnd", "lnd explorer", "lightning network", "lightning network explorer", "bitcoin", "litecoin", "bcashisascam"
   ],
   "author": "Brian Mancini <bmancini@gmail.com>",
   "license": "MIT",
