@@ -10,7 +10,7 @@ export const WalletBalanceCard = ({ walletBalance, title }) => (
       <span className="card-header-title">{title}</span>
     </CardHeader>
     <CardBody>
-      <DefList labelWidth={3}>
+      <DefList labelWidth={4}>
         <DefListItem>
           <DefListLabel>Total balance</DefListLabel>
           <DefListValue>

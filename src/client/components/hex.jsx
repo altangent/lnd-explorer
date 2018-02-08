@@ -11,6 +11,7 @@ export class Hex extends React.PureComponent {
     value: PropTypes.string,
     showStart: PropTypes.bool,
     substrLength: PropTypes.number,
+    full: PropTypes.bool,
   };
 
   state = {
@@ -52,9 +53,10 @@ export class Hex extends React.PureComponent {
   }
 
   render() {
-    let { value, showStart = true, substrLength = 8 } = this.props;
+    let { value, showStart = true, substrLength = 8, full } = this.props;
     let { popoverOpen, id } = this.state;
-    let truncatedValue = this._truncateValue(value, showStart, substrLength);
+    let truncatedValue = full ? value : this._truncateValue(value, showStart, substrLength);
+    let showPopover = !full;
     return (
       <span
         className="hex-value"
@@ -69,14 +71,16 @@ export class Hex extends React.PureComponent {
         <a href="#" onClick={this.copyClicked}>
           <EntypoCopy />
         </a>
-        <Popover
-          placement="bottom-start"
-          isOpen={popoverOpen}
-          target={'hex-' + id}
-          toggle={this.toggle}
-        >
-          <PopoverBody>{value}</PopoverBody>
-        </Popover>
+        {showPopover && (
+          <Popover
+            placement="bottom-start"
+            isOpen={popoverOpen}
+            target={'hex-' + id}
+            toggle={this.toggle}
+          >
+            <PopoverBody>{value}</PopoverBody>
+          </Popover>
+        )}
       </span>
     );
   }
