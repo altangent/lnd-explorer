@@ -4,6 +4,7 @@ const express = require('express');
 const compression = require('compression');
 const bodyParser = require('body-parser');
 const serveStatic = require('serve-static');
+const favicon = require('serve-favicon');
 const lnd = require('./lnd');
 const app = express();
 
@@ -21,6 +22,7 @@ lnd.connect().then(() => {
 });
 
 app.use(compression());
+app.use(favicon(path.join(__dirname, '../public/lnd-explorer-icon.png')));
 app.use('/public', serveStatic(path.join(__dirname, '../public')));
 app.use('/public/app', serveStatic(path.join(__dirname, '../../dist/app')));
 app.use('/public/css', serveStatic(path.join(__dirname, '../../dist/css')));
