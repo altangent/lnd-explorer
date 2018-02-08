@@ -7,7 +7,7 @@ import { parseJson } from '../../services/rest-helpers';
 
 export class CreateInvoiceModal extends React.Component {
   static propTypes = {
-    invoiceCreated: PropTypes.func,
+    onInvoiceCreated: PropTypes.func,
   };
 
   state = {
@@ -22,6 +22,9 @@ export class CreateInvoiceModal extends React.Component {
 
   ok = () => {
     this.createInvoice(this.state.form)
+      .then(invoice => {
+        if (this.props.onInvoiceCreated) this.props.onInvoiceCreated(invoice);
+      })
       .then(this.toggle)
       .catch(error => this.setState({ error }));
   };

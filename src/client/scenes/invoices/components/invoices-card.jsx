@@ -4,13 +4,13 @@ import { Card, CardHeader } from 'reactstrap';
 import { InvoicesList } from './invoices-list';
 import { CreateInvoiceModal } from '../../create-invoice/create-invoice-modal';
 
-export const InvoicesCard = ({ invoices }) => {
+export const InvoicesCard = ({ invoices, onInvoiceCreated }) => {
   return (
     <Card>
       <CardHeader>
         Invoices
         <div className="float-sm-right">
-          <CreateInvoiceModal />
+          <CreateInvoiceModal onInvoiceCreated={onInvoiceCreated} />
         </div>
       </CardHeader>
       <InvoicesList invoices={invoices} />
@@ -20,4 +20,5 @@ export const InvoicesCard = ({ invoices }) => {
 
 InvoicesCard.propTypes = {
   invoices: PropTypes.array.isRequired,
+  onInvoiceCreated: PropTypes.func,
 };

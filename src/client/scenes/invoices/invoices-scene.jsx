@@ -10,11 +10,11 @@ export class InvoicesScene extends React.Component {
     };
   }
 
-  fetchInvoices() {
+  fetchInvoices = () => {
     fetch('/api/invoices')
       .then(res => res.json())
       .then(data => this.setState(data));
-  }
+  };
 
   componentWillMount() {
     this.fetchInvoices();
@@ -23,6 +23,6 @@ export class InvoicesScene extends React.Component {
   render() {
     let { invoices } = this.state;
     if (!invoices) return <Loading />;
-    return <InvoicesCard invoices={invoices.invoices} />;
+    return <InvoicesCard invoices={invoices.invoices} onInvoiceCreated={this.fetchInvoices} />;
   }
 }
