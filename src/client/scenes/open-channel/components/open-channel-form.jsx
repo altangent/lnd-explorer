@@ -29,7 +29,7 @@ export class OpenChannelForm extends React.Component {
             <option value="">Select a peer...</option>
             {peers.map(p => (
               <option key={'peer_' + p.peer_id} value={p.peer_id}>
-                {p.address}
+                {`${p.pub_key}@${p.address}`}
               </option>
             ))}
           </Input>

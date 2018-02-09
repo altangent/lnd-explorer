@@ -25,7 +25,13 @@ export class OpenChannelModal extends React.Component {
 
   toggle = () => {
     if (!this.state.open) this.loadPeers();
-    this.setState({ open: !this.state.open, error: undefined });
+    this.setState({
+      open: !this.state.open,
+      error: undefined,
+      selectedPeer: undefined,
+      localAmount: 0,
+      pushAmount: 0,
+    });
   };
 
   ok = () => {
