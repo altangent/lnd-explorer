@@ -14,7 +14,9 @@ export const BlockchainCard = ({ info }) => (
       <DefList labelWidth={3}>
         <DefListItem>
           <DefListLabel>Chain:</DefListLabel>
-          <DefListValue>{info.chains.join(', ')}</DefListValue>
+          <DefListValue>
+            {info.chains.join(', ')} {info.testnet ? ' testnet' : ''}
+          </DefListValue>
         </DefListItem>
         <DefListItem>
           <DefListLabel>Block height</DefListLabel>
