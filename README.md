@@ -1,4 +1,4 @@
-# lnd-explorer
+# LND Explorer
 LND Explorer is a web interface for interacting with the Lightning Network via LND.
 
 ## Installation
