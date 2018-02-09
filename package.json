@@ -5,7 +5,7 @@
   "scripts": {
     "start": "NODE_ENV=production node src/server/server",
     "build": "npm-run-all build:*",
-    "build:app": "browserify src/client/app.jsx --extension=.jsx -o ./dist/app/bundle.js",
+    "build:app": "NODE_ENV=production browserify src/client/app.jsx --extension=.jsx -o ./dist/app/bundle.js",
     "build:app-compress": "uglifyjs -c -o ./dist/app/bundle.js ./dist/app/bundle.js",
     "build:scss": "node-sass -o dist/css --output-style compressed src/scss/app.scss",
     "watch": "npm-run-all --parallel watch:*",
