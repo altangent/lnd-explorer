@@ -66,10 +66,12 @@ export class HomeScene extends React.Component {
               <strong>Pub Key: </strong>
               <Hex value={info.identity_pubkey} full={true} />
             </div>
-            <div>
-              <strong>Address: </strong>
-              <Hex value={info.identity_pubkey + '@' + info.uris[0]} full={true} />
-            </div>
+            {info.uris.length > 0 && (
+              <div>
+                <strong>Address: </strong>
+                <Hex value={info.uris[0]} full={true} />
+              </div>
+            )}
           </div>
         </div>
       </div>
