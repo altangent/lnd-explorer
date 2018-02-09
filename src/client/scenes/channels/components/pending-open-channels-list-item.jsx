@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button } from 'reactstrap';
-import { BoolValue } from '../../../components/bool-value';
+import PropTypes from 'prop-types';
 import { BtcAmount } from '../../../components/btc-amount';
 import { Hex } from '../../../components/hex';
 
@@ -33,3 +32,7 @@ export const PendingOpenChannelsListItem = ({ channel }) => (
     <td>{channel.confirmation_height}</td>
   </tr>
 );
+
+PendingOpenChannelsListItem.propTypes = {
+  channel: PropTypes.object.isRequired,
+};

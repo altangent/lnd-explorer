@@ -45,10 +45,11 @@ export class Hex extends React.PureComponent {
     else return value.substr(Math.max(0, value.length - substrLength - 1), substrLength);
   }
   _renderValue(originalValue, truncatedValue, showStart) {
-    if (truncatedValue.length === originalValue.length) return <span>{truncatedValue}</span>;
+    if (truncatedValue.length === originalValue.length)
+      return <span className="full">{truncatedValue}</span>;
     else {
-      if (showStart) return <span>{truncatedValue}...</span>;
-      else return <span>...{truncatedValue}</span>;
+      if (showStart) return <span className="partial">{truncatedValue}...</span>;
+      else return <span className="partial">...{truncatedValue}</span>;
     }
   }
 
@@ -58,7 +59,7 @@ export class Hex extends React.PureComponent {
     let truncatedValue = full ? value : this._truncateValue(value, showStart, substrLength);
     let showPopover = !full;
     return (
-      <span
+      <div
         className="hex-value"
         onClick={this.toggle}
         onTouchStart={this.toggle}
@@ -81,7 +82,7 @@ export class Hex extends React.PureComponent {
             <PopoverBody>{value}</PopoverBody>
           </Popover>
         )}
-      </span>
+      </div>
     );
   }
 }

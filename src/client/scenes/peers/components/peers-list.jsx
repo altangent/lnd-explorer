@@ -4,7 +4,7 @@ import { Table } from 'reactstrap';
 import { PeerListItem } from './peers-list-item';
 
 export const PeersList = ({ peers, onPeerDisconnected }) => (
-  <Table>
+  <Table responsive>
     <thead>
       <tr>
         <th />

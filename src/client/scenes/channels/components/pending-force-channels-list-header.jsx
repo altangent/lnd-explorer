@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const PendingForceChannelsListHeader = ({ channels }) => (
+export const PendingForceChannelsListHeader = () => (
   <tr>
     <th>Remote pub key</th>
     <th>Channel point</th>

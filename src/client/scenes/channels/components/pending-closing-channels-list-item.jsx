@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button } from 'reactstrap';
-import { BoolValue } from '../../../components/bool-value';
+import PropTypes from 'prop-types';
 import { BtcAmount } from '../../../components/btc-amount';
 import { Hex } from '../../../components/hex';
 
@@ -26,3 +25,7 @@ export const PendingClosingChannelsListItem = ({ channel }) => (
     </td>
   </tr>
 );
+
+PendingClosingChannelsListItem.propTypes = {
+  channel: PropTypes.object.isRequired,
+};

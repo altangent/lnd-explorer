@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Hex } from '../../../components/hex';
 import { BtcAmount } from '../../../components/btc-amount';
 import { BoolValue } from '../../..//components/bool-value';
@@ -33,3 +34,7 @@ export const InvoicesListItem = ({ invoice }) => (
     </td>
   </tr>
 );
+
+InvoicesListItem.propTypes = {
+  invoice: PropTypes.object.isRequired,
+};

@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Table } from 'reactstrap';
 import { PaymentsListItem } from './payments-list-item';
 
 export const PaymentsList = ({ payments }) => {
   return (
-    <Table>
+    <Table responsive>
       <thead>
         <tr>
           <th>Payment hash</th>
@@ -19,4 +20,8 @@ export const PaymentsList = ({ payments }) => {
       </tbody>
     </Table>
   );
+};
+
+PaymentsList.propTypes = {
+  payments: PropTypes.array.isRequired,
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const PendingClosingChannelsListHeader = ({ channels }) => (
+export const PendingClosingChannelsListHeader = () => (
   <tr>
     <th>Remote pub key</th>
     <th>Channel point</th>

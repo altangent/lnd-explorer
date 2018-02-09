@@ -42,10 +42,10 @@ export class NetworkScene extends React.Component {
           </div>
         </div>
         <div className="row mb-5">
-          <div className="col-sm-7">
+          <div className="col-sm-7 mb-3">
             <NetworkGraphCard onNodeSelected={this.onNodeSelected} />
           </div>
-          <div className="col-sm-5">
+          <div className="col-sm-5 mb-3">
             <NodeInfoCard node={node} />
           </div>
         </div>

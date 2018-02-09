@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Table } from 'reactstrap';
 
 export const ChannelsList = ({ ListHeaderComponent, ListItemComponent, channels }) => {
@@ -17,4 +18,10 @@ export const ChannelsList = ({ ListHeaderComponent, ListItemComponent, channels 
       </tbody>
     </Table>
   );
+};
+
+ChannelsList.propTypes = {
+  ListHeaderComponent: PropTypes.any.isRequired,
+  ListItemComponent: PropTypes.any.isRequired,
+  channels: PropTypes.array.isRequired,
 };

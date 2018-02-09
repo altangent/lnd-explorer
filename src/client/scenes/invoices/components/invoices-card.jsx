@@ -9,7 +9,7 @@ export const InvoicesCard = ({ invoices, onInvoiceCreated }) => {
     <Card>
       <CardHeader>
         <span className="card-header-title">Invoices</span>
-        <div className="float-sm-right">
+        <div className="float-right">
           <CreateInvoiceModal onInvoiceCreated={onInvoiceCreated} />
         </div>
       </CardHeader>

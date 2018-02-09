@@ -8,7 +8,7 @@ export const PeersListCard = ({ peers, onPeerConnected, onPeerDisconnected }) =>
   <Card>
     <CardHeader>
       <span className="card-header-title">Peers</span>
-      <div className="float-sm-right">
+      <div className="float-right">
         <ConnectPeerModal onPeerConnected={onPeerConnected} />
       </div>
     </CardHeader>

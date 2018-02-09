@@ -8,7 +8,7 @@ export const PaymentsListCard = ({ payments }) => (
   <Card>
     <CardHeader>
       <span className="card-header-title">Payments</span>
-      <div className="float-sm-right">
+      <div className="float-right">
         <SendPaymentModal />
       </div>
     </CardHeader>

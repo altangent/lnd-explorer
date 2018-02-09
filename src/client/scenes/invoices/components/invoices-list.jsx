@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Table } from 'reactstrap';
 import { InvoicesListItem } from './invoices-list-item';
 
 export const InvoicesList = ({ invoices }) => (
-  <Table>
+  <Table responsive>
     <thead>
       <tr>
         <th>Memo</th>
@@ -24,3 +25,7 @@ export const InvoicesList = ({ invoices }) => (
     </tbody>
   </Table>
 );
+
+InvoicesList.propTypes = {
+  invoices: PropTypes.array.isRequired,
+};
