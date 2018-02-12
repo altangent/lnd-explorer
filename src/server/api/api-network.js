@@ -74,28 +74,60 @@ function bfs(nodeMap, edgeMap, pubkey, max) {
   winston.profile('breadth first search');
   let visited = new Map();
   let start = nodeMap.get(pubkey);
-  let nodeQueue = [start];
 
-  while (visited.size < max) {
-    let node = nodeQueue.shift();
-    if (!node) break;
+  function processStep(nodeQueue, filter) {
+    winston.info('processing round with', nodeQueue.length);
+    let resultNodes = [];
 
-    visited.set(node.pub_key, node);
+    // ensure our node queue is sorted so that our
+    // node distribution isn't stale nodes or nodes
+    // that we cannot connect with
+    if (filter) nodeQueue = sortNodes(filterNodes(nodeQueue));
+    else nodeQueue = sortNodes(nodeQueue);
 
-    if (!edgeMap.has(node.pub_key)) continue;
+    while (visited.size < max) {
+      let node = nodeQueue.shift();
+      if (!node) break;
 
-    let edges = edgeMap.get(node.pub_key).values();
+      visited.set(node.pub_key, node);
 
-    for (let edge of edges) {
-      let sourceNode = nodeMap.get(edge.node1_pub);
-      if (!visited.has(sourceNode.pub_key)) nodeQueue.push(sourceNode);
+      if (!edgeMap.has(node.pub_key)) continue;
 
-      let targetNode = nodeMap.get(edge.node2_pub);
-      if (!visited.has(targetNode.pub_key)) nodeQueue.push(targetNode);
+      let edges = edgeMap.get(node.pub_key).values();
+
+      for (let edge of edges) {
+        let sourceNode = nodeMap.get(edge.node1_pub);
+        if (!visited.has(sourceNode.pub_key)) resultNodes.push(sourceNode);
+
+        let targetNode = nodeMap.get(edge.node2_pub);
+        if (!visited.has(targetNode.pub_key)) resultNodes.push(targetNode);
+      }
     }
+
+    return resultNodes;
   }
+
+  let resultNodes = processStep([start], false);
+  while (visited.size < max && resultNodes.length) {
+    resultNodes = processStep(resultNodes, true);
+  }
+
   winston.profile('breadth first search');
   return visited;
+}
+
+function filterNodes(nodes) {
+  return nodes.filter(n => n.addresses.length);
+}
+
+function sortNodes(nodes) {
+  let result = nodes.slice();
+  result.sort((a, b) => {
+    if (a.last_update < b.last_update) return 1;
+    else if (a.last_update > b.last_update) return -1;
+    else return 0;
+  });
+  return result;
 }
 
 ///////////////////////////
