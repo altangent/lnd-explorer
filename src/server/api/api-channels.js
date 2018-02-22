@@ -39,8 +39,7 @@ async function openChannel(req, res) {
 }
 
 async function closeChannel(req, res) {
-  let { channel_point } = req.body;
-  let force = false;
+  let { channel_point, force = false } = req.body;
 
   let [funding_txid_str, output_index] = channel_point.split(':');
 

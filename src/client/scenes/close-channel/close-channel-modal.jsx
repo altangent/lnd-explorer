@@ -1,6 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
+import {
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  FormGroup,
+  Label,
+  Input,
+} from 'reactstrap';
 import { BtcAmount } from '../../components/btc-amount';
 import { Hex } from '../../components/hex';
 import { ModalAlert } from '../../components/modal-alert';
@@ -14,9 +23,10 @@ export class CloseChannelModal extends React.Component {
   state = {
     open: false,
     error: undefined,
+    force: false,
   };
 
-  toggle = () => this.setState({ open: !this.state.open, error: undefined });
+  toggle = () => this.setState({ open: !this.state.open, error: undefined, force: false });
 
   ok = () => {
     let channel = this.props.channel;
@@ -31,13 +41,13 @@ export class CloseChannelModal extends React.Component {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(channel),
+      body: JSON.stringify({ channel_point: channel.channel_point, force: this.state.force }),
     }).then(parseJson);
   };
 
   render() {
     let { channel } = this.props;
-    let { open, error } = this.state;
+    let { open, error, force } = this.state;
     if (!channel) return <div />;
     return (
       <div>
@@ -86,8 +96,23 @@ export class CloseChannelModal extends React.Component {
                 </div>
               </div>
             </div>
+            <div className="row">
+              <div className="col-sm-12" />
+            </div>
           </ModalBody>
           <ModalFooter>
+            <FormGroup check>
+              <Input
+                type="checkbox"
+                name="force"
+                id="forceClose"
+                checked={force}
+                onChange={e => this.setState({ force: e.target.checked })}
+              />
+              <Label check for="forceClose">
+                Force
+              </Label>
+            </FormGroup>
             <Button color="primary" size="sm" onClick={this.ok}>
               Close
             </Button>
