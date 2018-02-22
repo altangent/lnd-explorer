@@ -1,13 +1,29 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Loading } from '../../components/loading';
 import { InvoicesCard } from './components/invoices-card';
+import { withSocket } from '../../services/socket';
 
-export class InvoicesScene extends React.Component {
+export class InvoicesSceneComponent extends React.Component {
+  static propTypes = {
+    socket: PropTypes.object.isRequired,
+  };
+
   constructor() {
     super();
     this.state = {
       invoices: undefined,
     };
+  }
+
+  componentDidMount() {
+    let { socket } = this.props;
+    socket.on('invoice', this.fetchInvoices);
+  }
+
+  componentWillUnmount() {
+    let { socket } = this.props;
+    socket.off('invoice', this.fetchInvoices);
   }
 
   fetchInvoices = () => {
@@ -26,3 +42,5 @@ export class InvoicesScene extends React.Component {
     return <InvoicesCard invoices={invoices.invoices} onInvoiceCreated={this.fetchInvoices} />;
   }
 }
+
+export const InvoicesScene = withSocket(InvoicesSceneComponent);
