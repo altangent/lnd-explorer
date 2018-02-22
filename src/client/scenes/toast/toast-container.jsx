@@ -36,7 +36,10 @@ export class ToastContainerComponent extends React.Component {
 
   onOpenChannel = msg => {
     let toast = { type: 'success ' };
-    if (msg.update === 'chan_pending') toast.message = 'Open channel has been initialized';
+    if (msg.update === 'chan_pending') {
+      toast.message = 'Open channel has been initialized';
+      toast.autoclose = true;
+    }
     if (msg.update === 'chan_open') toast.message = 'Channel has been successfully opened';
     this.addToast(toast);
   };
@@ -48,7 +51,10 @@ export class ToastContainerComponent extends React.Component {
 
   onCloseChannel = msg => {
     let toast = { type: 'success' };
-    if (msg.update === 'close_pending') toast.message = 'Close channel has been initiated';
+    if (msg.update === 'close_pending') {
+      toast.message = 'Close channel has been initiated';
+      toast.autoclose = true;
+    }
     if (msg.update === 'chan_close') toast.message = 'Channel has been closed';
     this.addToast(toast);
   };
@@ -63,7 +69,11 @@ export class ToastContainerComponent extends React.Component {
     if (msg.payment_error)
       toast = { type: 'danger', message: 'Send payment failed with error: ' + msg.payment_error };
     if (!msg.payment_error)
-      toast = { type: 'success', message: 'Sent payment for ' + msg.payment_route.total_amt };
+      toast = {
+        type: 'success',
+        message: 'Sent payment for ' + msg.payment_route.total_amt,
+        autoclose: true,
+      };
     this.addToast(toast);
   };
 

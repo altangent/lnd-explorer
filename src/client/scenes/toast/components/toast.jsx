@@ -18,7 +18,7 @@ export class Toast extends React.Component {
   };
 
   componentDidMount() {
-    setTimeout(this.close, 10000);
+    if (this.props.toast.autoclose) setTimeout(this.close, 10000);
   }
 
   render() {
