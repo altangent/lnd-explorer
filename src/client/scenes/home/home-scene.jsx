@@ -62,16 +62,24 @@ export class HomeScene extends React.Component {
         </div>
         <div className="row mt-3">
           <div className="col-sm-12">
-            <div>
+            <div className="mb-2">
+              <strong>Alias: </strong>
+              <div>{info.alias ? info.alias : <em>Alias not configured</em>}</div>
+            </div>
+            <div className="mb-2">
               <strong>Pub Key: </strong>
               <Hex value={info.identity_pubkey} full={true} />
             </div>
-            {info.uris.length > 0 && (
-              <div>
-                <strong>Address: </strong>
+            <div className="mb-2">
+              <strong>Address: </strong>
+              {info.uris.length > 0 ? (
                 <Hex value={info.uris[0]} full={true} />
-              </div>
-            )}
+              ) : (
+                <div>
+                  <em>External address not configured</em>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

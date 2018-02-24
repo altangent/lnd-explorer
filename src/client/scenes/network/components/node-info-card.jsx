@@ -37,8 +37,14 @@ function renderNode(node) {
         </DefListValue>
       </DefListItem>
       <DefListItem>
+        <DefListLabel>Alias</DefListLabel>
+        <DefListValue>
+          {node.node.alias ? node.node.alias : <em>Alias not configured</em>}
+        </DefListValue>
+      </DefListItem>
+      <DefListItem>
         <DefListLabel>Addresses:</DefListLabel>
-        <DefListValue>{node.node.addresses.map(a => a.addr).join(',')}</DefListValue>
+        <DefListValue>{node.node.addresses.map(a => a.addr).join(', ')}</DefListValue>
       </DefListItem>
       <DefListItem>
         <DefListLabel>Last updated:</DefListLabel>
