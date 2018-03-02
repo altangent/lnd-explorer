@@ -6,7 +6,7 @@ export class OpenChannelForm extends React.Component {
   static propTypes = {
     peers: PropTypes.array,
     onChange: PropTypes.func,
-    selectedPeer: PropTypes.number,
+    selectedPeer: PropTypes.string,
     localAmount: PropTypes.any,
     pushAmount: PropTypes.any,
   };
@@ -23,13 +23,13 @@ export class OpenChannelForm extends React.Component {
           <Label for="newChannelPeer">Select peer:</Label>
           <Input
             type="select"
-            onChange={e => this.formChanged('selectedPeer', parseInt(e.target.value))}
+            onChange={e => this.formChanged('selectedPeer', e.target.value)}
             value={selectedPeer}
           >
             <option value="">Select a peer...</option>
             {peers.map(p => (
-              <option key={'peer_' + p.peer_id} value={p.peer_id}>
-                {`${p.pub_key}@${p.address}`}
+              <option key={'peer_' + p.pub_key} value={p.pub_key}>
+                {`${p.pub_key.substr(0, 16)} - ${p.address}`}
               </option>
             ))}
           </Input>

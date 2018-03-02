@@ -9,9 +9,8 @@ export const PeerListItem = ({ peer, onPeerDisconnected }) => (
     <td>
       <DisconnectPeerModal peer={peer} onPeerDisconnected={onPeerDisconnected} />
     </td>
-    <td>{peer.peer_id}</td>
     <td>
-      <Hex value={peer.pub_key} />
+      <Hex value={peer.pub_key} substrLength={16} />
     </td>
     <td>{peer.address}</td>
     <td>{peer.bytes_sent}</td>

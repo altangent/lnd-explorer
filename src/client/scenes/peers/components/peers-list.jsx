@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'reactstrap';
 import { PeerListItem } from './peers-list-item';
+import { peerSort } from '../../../services/peer-helpers';
 
 export const PeersList = ({ peers, onPeerDisconnected }) => (
   <Table responsive>
     <thead>
       <tr>
         <th />
-        <th>Peer Id</th>
         <th>Pub key</th>
         <th>Address</th>
         <th>Bytes sent</th>
@@ -19,13 +19,15 @@ export const PeersList = ({ peers, onPeerDisconnected }) => (
       </tr>
     </thead>
     <tbody>
-      {peers.map(peer => (
-        <PeerListItem
-          key={'peer_' + peer.peer_id}
-          peer={peer}
-          onPeerDisconnected={onPeerDisconnected}
-        />
-      ))}
+      {peers
+        .sort(peerSort)
+        .map(peer => (
+          <PeerListItem
+            key={'peer_' + peer.pub_key}
+            peer={peer}
+            onPeerDisconnected={onPeerDisconnected}
+          />
+        ))}
     </tbody>
   </Table>
 );

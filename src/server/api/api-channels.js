@@ -23,14 +23,13 @@ async function getChannels(req, res) {
 }
 
 async function openChannel(req, res) {
-  let { target_peer_id, local_funding_amount, push_sat } = req.body;
+  let { node_pubkey_string, local_funding_amount, push_sat } = req.body;
 
-  target_peer_id = parseInt(target_peer_id);
   local_funding_amount = parseInt(local_funding_amount);
   push_sat = push_sat ? parseInt(push_sat) : undefined;
 
   let conn = await lnd.client.openChannel({
-    target_peer_id,
+    node_pubkey: Buffer.from(node_pubkey_string, 'hex'),
     local_funding_amount,
     push_sat,
   });

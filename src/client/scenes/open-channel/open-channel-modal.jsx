@@ -5,6 +5,7 @@ import { Modal, ModalHeader, ModalFooter, ModalBody, Button } from 'reactstrap';
 import { OpenChannelForm } from './components/open-channel-form';
 import { ModalAlert } from '../../components/modal-alert';
 import { parseJson } from '../../services/rest-helpers';
+import { peerSort } from '../../services/peer-helpers';
 
 export class OpenChannelModal extends React.Component {
   static propTypes = {
@@ -17,6 +18,7 @@ export class OpenChannelModal extends React.Component {
     open: false,
     peers: undefined,
     selectedPeer: undefined,
+    unconnectedPeer: false,
     localAmount: 0,
     pushAmount: 0,
     valid: false,
@@ -37,7 +39,7 @@ export class OpenChannelModal extends React.Component {
   ok = () => {
     let { selectedPeer, localAmount, pushAmount } = this.state;
     this.openChannel({
-      target_peer_id: selectedPeer,
+      node_pubkey_string: selectedPeer,
       local_funding_amount: localAmount,
       push_sat: pushAmount,
     })
@@ -49,18 +51,20 @@ export class OpenChannelModal extends React.Component {
     fetch('/api/peers')
       .then(res => res.json())
       .then(peers => {
-        let selectedPeer = peers.peers.find(p => p.pub_key === this.props.openPubKey);
-        this.setState({ peers: peers.peers, selectedPeer: selectedPeer && selectedPeer.peer_id });
+        peers = peers.peers;
+        peers.sort(peerSort);
+        let selectedPeer = peers.find(p => p.pub_key === this.props.openPubKey);
+        this.setState({ peers, selectedPeer: selectedPeer && selectedPeer.pub_key });
       });
   };
 
-  openChannel({ target_peer_id, local_funding_amount, push_sat }) {
+  openChannel({ node_pubkey_string, local_funding_amount, push_sat }) {
     return fetch('/api/channels', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ target_peer_id, local_funding_amount, push_sat }),
+      body: JSON.stringify({ node_pubkey_string, local_funding_amount, push_sat }),
     }).then(parseJson);
   }
 
@@ -70,11 +74,13 @@ export class OpenChannelModal extends React.Component {
   };
 
   validate = ({ selectedPeer, localAmount, pushAmount }) => {
-    return selectedPeer > 0 && localAmount > 0 && pushAmount >= 0;
+    return selectedPeer && localAmount > pushAmount && pushAmount >= 0;
   };
 
   render() {
     let { open, peers, error, valid } = this.state;
+    let { openPubKey } = this.props;
+    let showPeerWarning = openPubKey && peers && !peers.find(p => p.pub_key === openPubKey);
     return (
       <div>
         <Button color="primary" size="sm" onClick={this.toggle}>
@@ -84,7 +90,17 @@ export class OpenChannelModal extends React.Component {
           <ModalHeader toggle={this.close}>Open channel</ModalHeader>
           <ModalBody>
             <ModalAlert error={error} />
-            <OpenChannelForm peers={peers} onChange={this.formChanged} {...this.state} />
+            {showPeerWarning && (
+              <ModalAlert
+                error={{
+                  type: 'error',
+                  message: 'You must connect to the peer before creating a channel',
+                }}
+              />
+            )}
+            {!showPeerWarning && (
+              <OpenChannelForm peers={peers} onChange={this.formChanged} {...this.state} />
+            )}
           </ModalBody>
           <ModalFooter>
             <Button color="primary" size="sm" onClick={this.ok} disabled={!valid}>

@@ -11,14 +11,14 @@ import { OpenChannelModal } from '../../open-channel/open-channel-modal';
 export const NodeInfoCard = ({ node }) => (
   <Card>
     <CardHeader>
+      <div className="float-right ml-1">
+        <OpenChannelModal openPubKey={node && node.node.pub_key} />
+      </div>
       <div className="float-right">
         <ConnectPeerModal
           openPubkey={node && node.node.pub_key}
           openHost={node && node.node.addresses[0] && node.node.addresses[0].addr}
         />
-      </div>
-      <div className="float-right mr-1">
-        <OpenChannelModal openPubKey={node && node.node.pub_key} />
       </div>
       <div className="card-header-title">Node</div>
     </CardHeader>
