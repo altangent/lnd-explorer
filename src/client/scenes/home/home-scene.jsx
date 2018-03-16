@@ -14,8 +14,7 @@ export class HomeScene extends React.Component {
     this.state = {
       info: undefined,
       channelBalance: undefined,
-      walletBalanceAll: undefined,
-      walletBalacnceWitness: undefined,
+      walletBalance: undefined,
     };
   }
 
@@ -31,7 +30,7 @@ export class HomeScene extends React.Component {
   }
 
   render() {
-    let { info, channelBalance, walletBalanceWitness } = this.state;
+    let { info, channelBalance, walletBalance } = this.state;
     if (!info) return <Loading />;
     return (
       <div>
@@ -51,10 +50,7 @@ export class HomeScene extends React.Component {
         </div>
         <div className="row mt-3">
           <div className="col-sm-6">
-            <WalletBalanceCard
-              walletBalance={walletBalanceWitness}
-              title="On-chain wallet balance"
-            />
+            <WalletBalanceCard walletBalance={walletBalance} title="On-chain wallet balance" />
           </div>
           <div className="col-sm-6">
             <BlockchainCard info={info} />
