@@ -4,7 +4,7 @@ LND Explorer is a web interface for interacting with the Lightning Network via L
 
 ## Installation
 
-LND Explorer requires LND 0.3-alpha as of Feb 24, 2018 commit e5f9b28e395507d860fb2d08c2f01f5889c14e39.
+LND Explorer requires LND 0.4-beta.
 
 Run LND Explorer against a local installation on LND:
 
