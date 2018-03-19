@@ -48,7 +48,7 @@ export class OpenChannelModal extends React.Component {
   };
 
   loadPeers = () => {
-    fetch('/api/peers')
+    fetch('/api/peers', { credentials: 'same-origin' })
       .then(res => res.json())
       .then(peers => {
         peers = peers.peers;
@@ -65,6 +65,7 @@ export class OpenChannelModal extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ node_pubkey_string, local_funding_amount, push_sat }),
+      credentials: 'same-origin',
     }).then(parseJson);
   }
 

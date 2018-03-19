@@ -27,6 +27,7 @@ export class NewAddressModal extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ type }),
+      credentials: 'same-origin',
     })
       .then(res => res.json())
       .then(json => this.setState({ address: json.address.address }));

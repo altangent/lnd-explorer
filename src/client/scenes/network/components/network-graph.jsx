@@ -38,10 +38,10 @@ export class NetworkGraph extends React.Component {
     let height = svg.attr('height');
     let maxNodes = 100;
 
-    fetch('/api/home')
+    fetch('/api/home', { credentials: 'same-origin' })
       .then(res => res.json())
       .then(home =>
-        fetch('/api/graph?nodes=' + maxNodes)
+        fetch('/api/graph?nodes=' + maxNodes, { credentials: 'same-origin' })
           .then(res => res.json())
           .then(graphJson => this.mapLndGraph(graphJson))
           .then(graph => render(graph, home.info))

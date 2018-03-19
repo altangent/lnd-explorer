@@ -36,6 +36,7 @@ export class CreateInvoiceModal extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ memo, value }),
+      credentials: 'same-origin',
     }).then(parseJson);
   };
 

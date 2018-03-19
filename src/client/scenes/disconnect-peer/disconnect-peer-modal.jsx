@@ -36,6 +36,7 @@ export class DisconnectPeerModal extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ pub_key }),
+      credentials: 'same-origin',
     }).then(parseJson);
   }
 

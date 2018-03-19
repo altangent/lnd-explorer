@@ -14,13 +14,14 @@ export class NetworkScene extends React.Component {
   }
 
   fetchData() {
-    fetch('/api/network')
+    fetch('/api/network', { credentials: 'same-origin' })
       .then(res => res.json())
       .then(networkInfo => this.setState({ networkInfo: networkInfo.networkInfo }));
   }
 
   fetchNode(pubKey) {
-    return fetch('/api/network/' + pubKey).then(res => res.json());
+    return fetch('/api/network/' + pubKey, { credentials: 'same-origin' })
+      .then(res => res.json());
   }
 
   onNodeSelected = pubKey => {

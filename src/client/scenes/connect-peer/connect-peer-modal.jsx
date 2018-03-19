@@ -50,6 +50,7 @@ export class ConnectPeerModal extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ pubkey, host }),
+      credentials: 'same-origin',
     }).then(parseJson);
   };
 
