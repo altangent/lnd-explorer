@@ -37,7 +37,7 @@ export class ChannelsSceneComponent extends React.Component {
   };
 
   fetchChannels = () => {
-    fetch('/api/channels')
+    fetch('/api/channels', { credentials: 'same-origin' })
       .then(res => res.json())
       .then(data => this.setState(data));
   };

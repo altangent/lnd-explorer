@@ -19,7 +19,7 @@ export class HomeScene extends React.Component {
   }
 
   loadData() {
-    fetch('/api/home')
+    fetch('/api/home', { credentials: 'same-origin' })
       .then(res => res.json())
       .then(data => this.setState(data))
       .catch(err => this.setState({ loadError: err }));

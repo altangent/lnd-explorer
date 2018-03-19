@@ -27,7 +27,7 @@ export class InvoicesSceneComponent extends React.Component {
   }
 
   fetchInvoices = () => {
-    fetch('/api/invoices')
+    fetch('/api/invoices', { credentials: 'same-origin' })
       .then(res => res.json())
       .then(data => this.setState(data));
   };

@@ -25,7 +25,7 @@ export class PaymentsSceneComponent extends React.Component {
   }
 
   fetchPayments = () => {
-    fetch('/api/payments')
+    fetch('/api/payments', { credentials: 'same-origin' })
       .then(res => res.json())
       .then(data => this.setState(data));
   };

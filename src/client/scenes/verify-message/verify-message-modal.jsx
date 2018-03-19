@@ -35,6 +35,7 @@ export class VerifyMessageModal extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ msg, signature }),
+      credentials: 'same-origin',
     })
       .then(res => res.json())
       .then(json => this.setState({ verification: json }));

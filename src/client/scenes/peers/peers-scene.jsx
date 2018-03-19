@@ -11,7 +11,7 @@ export class PeersScene extends React.Component {
   }
 
   fetchPeers = () => {
-    fetch('/api/peers')
+    fetch('/api/peers', { credentials: 'same-origin' })
       .then(res => res.json())
       .then(data => this.setState(data));
   };

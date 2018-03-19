@@ -27,7 +27,9 @@ export class TransactionsScene extends React.Component {
 
   loadData() {
     let { page, pagesize, sortBy, sortDir } = this.state;
-    fetch('/api/transactions?' + qs.stringify({ page, pagesize, sortBy, sortDir }))
+    fetch('/api/transactions?' + qs.stringify({ page, pagesize, sortBy, sortDir }), { 
+      credentials: 'same-origin' 
+    })
       .then(res => res.json())
       .then(json => json.txs)
       .then(txs => this.setState({ txs }));

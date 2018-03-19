@@ -42,6 +42,7 @@ export class CloseChannelModal extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ channel_point: channel.channel_point, force: this.state.force }),
+      credentials: 'same-origin',
     }).then(parseJson);
   };
 

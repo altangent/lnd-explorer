@@ -35,6 +35,7 @@ export class SendPaymentModal extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ payment_request }),
+      credentials: 'same-origin',
     }).then(parseJson);
   };
 
@@ -46,6 +47,7 @@ export class SendPaymentModal extends React.Component {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ payment_request }),
+        credentials: 'same-origin',
       })
         .then(parseJson)
         .then(payreq => this.setState({ payreq }))

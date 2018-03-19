@@ -36,6 +36,7 @@ export class SignMessageModal extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ msg }),
+      credentials: 'same-origin',
     })
       .then(res => res.json())
       .then(json => this.setState({ signedMessage: json.signature, msg }));
