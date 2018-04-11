@@ -10,6 +10,6 @@ export const PendingForceChannelsListHeader = () => (
     <th>Closing tx id</th>
     <th>Limbo balance</th>
     <th>Maturity height</th>
-    <th>Blocks till maturity</th>
+    <th>Blocks til maturity</th>
   </tr>
 );
