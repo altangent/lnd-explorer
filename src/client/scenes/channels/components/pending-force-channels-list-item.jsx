@@ -27,7 +27,7 @@ export const PendingForceChannelsListItem = ({ channel }) => (
       <BtcAmount satoshi={channel.limbo_balance} />
     </td>
     <td>{channel.maturity_height}</td>
-    <td>{channel.blocks_till_maturity}</td>
+    <td>{channel.blocks_til_maturity}</td>
   </tr>
 );
 
