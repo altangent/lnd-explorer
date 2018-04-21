@@ -30,3 +30,20 @@ LND_CERT_PATH - the path to tls.cert (default: OS specific default path for LND)
 LND_MACAROON_PATH - the path to the admin.macaroon file (default: OS specific default path for LND)
 LND_NO_MACAROONS - set to true to disable macaroons
 ```
+
+## Run with Docker
+
+Build the Dockerfile:
+
+```
+docker build . -t lnd-explorer
+```
+
+Run it, using the variables listed above to configure the application.  SERVER_HOST
+needs to be present to have the LND Explorer listen on all interfaces inside the container.
+
+```
+docker run -e LND_HOST=lightning -e SERVER_HOST=0.0.0.0 -v /full/path/to/.lnd:/root/.lnd/ -p 8000:8000 lnd-explorer
+```
+
+Then just navigate to http://localhost:8000
