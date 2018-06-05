@@ -43,19 +43,11 @@ async function closeChannel(req, res) {
   let [funding_txid_str, output_index] = channel_point.split(':');
 
   channel_point = {
-    funding_txid: reverse(Buffer.from(funding_txid_str, 'hex')),
-    output_index: parseInt(output_index),
+    funding_txid_str,
+    output_index: parseInt(output_index)
   };
 
   let conn = await lnd.client.closeChannel({ channel_point, force });
   wss.subscribeCloseChannel(conn);
   res.send({});
-}
-
-function reverse(buffer) {
-  let res = Buffer.alloc(buffer.length);
-  for (let i = 0; i < buffer.length; i++) {
-    res[i] = buffer[buffer.length - i - 1];
-  }
-  return res;
 }
