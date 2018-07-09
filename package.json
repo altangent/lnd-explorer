@@ -3,9 +3,9 @@
   "version": "1.3.0",
   "description": "Explorer for Lightning Network nodes powered by LND",
   "scripts": {
-    "start": "NODE_ENV=production node src/server/server",
+    "start": "cross-env NODE_ENV=production node src/server/server",
     "build": "npm-run-all build:*",
-    "build:app": "NODE_ENV=production browserify src/client/app.jsx --extension=.jsx -o ./dist/app/bundle.js",
+    "build:app": "cross-env NODE_ENV=production browserify src/client/app.jsx --extension=.jsx -o ./dist/app/bundle.js",
     "build:app-compress": "uglifyjs -c -o ./dist/app/bundle.js ./dist/app/bundle.js",
     "build:scss": "node-sass -o dist/css --output-style compressed src/scss/app.scss",
     "watch": "npm-run-all --parallel watch:*",
@@ -36,7 +36,7 @@
     "d3": "^4.13.0",
     "express": "^4.16.3",
     "grpc": "^1.12.2",
-    "lnd-async": "^1.3.0",
+    "lnd-async": "^1.3.1",
     "moment": "^2.22.2",
     "node-cache": "^4.2.0",
     "prop-types": "^15.6.1",
@@ -70,6 +70,7 @@
     "npm-run-all": "^4.1.3",
     "prettier": "^1.13.4",
     "uglify-js": "^3.4.0",
+    "cross-env": "^5.2.0",
     "watchify": "^3.11.0"
   },
   "browserify": {
