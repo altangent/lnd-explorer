@@ -4,7 +4,8 @@ LND Explorer is a web interface for interacting with the Lightning Network via L
 
 ## Installation
 
-LND Explorer requires LND 0.4.2-beta.
+LND Explorer requires LND 0.5-beta.
+
 
 Run LND Explorer against a local installation on LND:
 
@@ -39,7 +40,7 @@ Build the Dockerfile:
 docker build . -t lnd-explorer
 ```
 
-Run it, using the variables listed above to configure the application.  SERVER_HOST
+Run it, using the variables listed above to configure the application. SERVER_HOST
 needs to be present to have the LND Explorer listen on all interfaces inside the container.
 
 ```
