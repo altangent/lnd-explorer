@@ -38,7 +38,7 @@
     "express": "^4.16.4",
     "grpc": "^1.24.9",
     "lnd-async": "^1.8.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "node-cache": "^4.2.0",
     "prop-types": "^15.6.2",
     "pug": "^3.0.1",
